@@ -1,0 +1,43 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:form="sap.ui.layout.form">
+	<Dialog
+		title="Initiate Survey Forms"
+		resizable="true"
+		draggable="true">
+		<content>
+			<form:SimpleForm title = "" layout = "ResponsiveGridLayout">
+
+                <Label text = "Region" required="true"/>
+                <Select selectedKey="{path:'surveyforminstances>/region'}" change="onChangeRegion">
+                        <core:ListItem key='Blank' text=""/>
+				</Select>
+
+				<Label text = "Customer" required="true"/>
+				<Select showSecondaryValues= "true" selectedKey="{path:'surveyforminstances>/customer'}">
+                        <core:ListItem key='Blank' text=""/>
+				</Select>
+
+				<Label text = "Survey Form" required="true"/>
+				<Select showSecondaryValues= "true" selectedKey="{path:'surveyforminstances>/surveyForm'}">
+                        <core:ListItem key='Blank' text=""/>
+				</Select>
+
+                <Label text = "Customer Email" required="true" />
+				<TextArea value="{path:'surveyforminstances>/customer_email'}" liveChange="onChangeCustomerEmail" growing="true"/>
+
+                <Label text = "Expiry Date" required="true"/>
+				<DatePicker  value = "{path:'surveyforminstances>/expiry_date', type:'sap.ui.model.type.Date'}" />
+				
+				<Label text = "Reminder (in Days)"/>
+				<Input  value = "{path:'surveyforminstances>/reminder_interval'}" type="Number" liveChange="onChangeReminder"/>
+				
+			</form:SimpleForm>
+		</content>
+		<buttons>
+			<Button text="Trigger" type="Accept" press="onCreateSurveyFormInst"/>
+			<Button text="Cancel" type="Default" press="onDialogClose"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
