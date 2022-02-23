@@ -4,11 +4,14 @@ using {pntsurveyappservice.db as data} from '../db/data-model';
 service SurveyService {
     @cds.odata.valuelist
     entity Questions           as projection on data.Question;
+
+    @cds.odata.valuelist
     entity Options             as projection on data.Option;
+    
     entity Answers             as projection on data.Answer;
     entity Responses           as projection on data.Response;
-
-    @odata.draft.enabled @cds.odata.valuelist
+    
+    @cds.odata.valuelist
     entity SurveyForms         as projection on data.SurveyForm;
 
     entity SurveyFormInstances as projection on data.SurveyFormInstance;
