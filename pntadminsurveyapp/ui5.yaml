@@ -1,0 +1,30 @@
+specVersion: '2.4'
+metadata:
+  name: 'formadminui'
+type: application
+server:
+  customMiddleware:
+  - name: fiori-tools-proxy
+    afterMiddleware: compression
+    configuration:
+      ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+      backend:
+      - path: /pntsurvey
+        url: https://sap-internal---p-t-cee-y28xjdbpqr3q4bb3-build-pntsurveyapp-srv.cfapps.eu10.hana.ondemand.com
+      ui5:
+        path: 
+        - /resources
+        - /test-resources
+        url: https://ui5.sap.com
+        version: 1.98.0 # The UI5 version, for instance, 1.78.1. Empty means latest version
+  - name: fiori-tools-appreload
+    afterMiddleware: compression
+    configuration:
+     port: 35729
+     path: webapp
+     delay: 300
+  - name: fiori-tools-preview
+    afterMiddleware: fiori-tools-appreload
+    configuration:
+      component: formadminui
+      ui5Theme: sap_fiori_3

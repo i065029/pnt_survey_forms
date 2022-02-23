@@ -1,0 +1,94 @@
+_schema-version: "3.2"
+ID: formadminui
+description: Administration
+version: 0.0.1
+modules:
+- name: formadminui-dest-content
+  type: com.sap.application.content
+  requires:
+  - name: formadminui-dest-srv
+    parameters:
+      content-target: true
+  - name: formadminui-repo-host
+    parameters:
+      service-key:
+        name: formadminui-repo-host-key
+  - name: formadminui-uaa
+    parameters:
+      service-key:
+        name: formadminui-uaa-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: formadminui_repo_host
+          ServiceInstanceName: formadminui-html5-srv
+          ServiceKeyName: formadminui-repo-host-key
+          sap.cloud.service: formadminui
+        - Authentication: OAuth2UserTokenExchange
+          Name: formadminui_uaa
+          ServiceInstanceName: formadminui-xsuaa-srv
+          ServiceKeyName: formadminui-uaa-key
+          sap.cloud.service: formadminui
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: formadminui-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: formadminui-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - formadminui.zip
+      name: formadminui
+      target-path: resources/
+- name: formadminui
+  type: html5
+  path: .
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: formadminui-dest-srv
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: formadminui-dest-srv
+    service-plan: lite
+- name: formadminui-uaa
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: formadminui-xsuaa-srv
+    service-plan: application
+- name: formadminui-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: formadminui-html5-srv
+    service-plan: app-host
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
