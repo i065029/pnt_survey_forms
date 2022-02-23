@@ -147,18 +147,21 @@ sap.ui.define([
                             // Get Survey form Questionnaire
                             surveyform.getSurveyFormQuestionsBasedOnResponse(lclResponseId).then(function (oData) {
                                 var lclResponse_Id = oData.ID;
-                                var Questions = oData.surveyFormInstance.surveyForm.surveyFormQuestion;
+                                var Questions = oData.surveyFormInstance.surveyForm.Questions;
                                 for (var q = 0; q < Questions.length; q++) {
+                                    var qId = oData.surveyFormInstance.surveyForm.Questions[q].ID;
                                     // Prepare POST Payload for Answer
                                     var postAnswer = {
                                         "response_ID": lclResponse_Id,
-                                        "question_ID": Questions[q].question_ID
+                                        "question_ID": qId
                                     };
                                     // Create Answer
                                     surveyform.createanswer(postAnswer).then(function (oData) {
                                         var answerId = oData.ID;
                                     }).catch(ServiceUtil.errorHandler);
                                 }
+                                // Refresh Table Model
+                                sap.ui.getCore().byId("pntceesurveyapp.pntceesurveyapp::SurveyFormInstancesList--fe::table::Responses::LineItem").getModel().refresh()
                             }).catch(ServiceUtil.errorHandler);
                         }).catch(ServiceUtil.errorHandler);
 

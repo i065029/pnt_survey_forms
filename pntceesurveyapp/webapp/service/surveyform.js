@@ -104,7 +104,7 @@ sap.ui.define([], function () {
             return new Promise(function (oResolve, oReject) {
                 $.ajax({
                     type: "GET",
-                    url: "./pntsurvey/Responses/" + response_id + "?$expand=surveyFormInstance($expand=surveyForm($expand=surveyFormQuestion))",
+                    url: "./pntsurvey/Responses/" + response_id + "?$expand=surveyFormInstance($expand=surveyForm($expand=Questions))",
                     data: JSON.stringify(oData),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
