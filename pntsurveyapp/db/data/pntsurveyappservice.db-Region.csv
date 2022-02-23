@@ -1,4 +1,9 @@
 ﻿ID,createdAt,createdBy,modifiedAt,modifiedBy,region_name
-b12c3990-f13a-4724-87a9-563cacc72d62,2022-02-08T06:51:39.914Z,anonymous,2022-02-08T06:51:39.914Z,anonymous,REGION_1
-b5a75c38-2705-443d-898f-8534e0d86e45,2022-02-08T06:51:50.394Z,anonymous,2022-02-08T06:51:50.394Z,anonymous,REGION_3
-e7608ca8-b399-4ede-8247-7371c7f890f3,2022-02-08T06:52:01.351Z,anonymous,2022-02-08T06:52:01.351Z,anonymous,REGION_2
+"b12c3990-f13a-4724-87a9-563cacc72d62","2022-02-08 06:51:39.9140000","anonymous","2022-02-22 12:14:33.4830000","anonymous","CS Japan"
+"b5a75c38-2705-443d-898f-8534e0d86e45","2022-02-08 06:51:50.3940000","anonymous","2022-02-22 12:15:07.6210000","anonymous","CS Korea"
+"e7608ca8-b399-4ede-8247-7371c7f890f3","2022-02-08 06:52:01.3510000","anonymous","2022-02-22 12:15:40.5930000","anonymous","CS China"
+"a0bf5729-e733-4eb3-bf60-21bc5de3a41a","2022-02-22 12:16:15.7960000","anonymous","2022-02-22 12:16:15.7960000","anonymous","CS Taiwan"
+"4492e0f8-2948-43a7-b3a6-a08409d03822","2022-02-22 12:16:28.0640000","anonymous","2022-02-22 12:16:28.0640000","anonymous","CS ANZ"
+"3c50aae7-e0b9-4082-9299-7891dd421e93","2022-02-22 12:16:39.4480000","anonymous","2022-02-22 12:16:39.4480000","anonymous","CS South East Asia"
+"d95e0c13-4db9-4eef-8327-bb22fc6fd5ef","2022-02-22 12:16:50.1220000","anonymous","2022-02-22 12:16:50.1220000","anonymous","CS India"
+"92d39fa1-7b2c-4ef0-8a1f-99e4eb340ed5","2022-02-22 12:17:00.2580000","anonymous","2022-02-22 12:17:00.2580000","anonymous","CS Hong Kong"

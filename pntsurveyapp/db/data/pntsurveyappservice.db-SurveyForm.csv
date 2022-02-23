@@ -1,4 +1,2 @@
 ﻿ID,createdAt,createdBy,modifiedAt,modifiedBy,survey_form_name,survey_form_version,activation_status
-94cf1581-c4e5-4f57-b5d9-66ea7749bdb1,2022-02-08T06:55:09.185Z,anonymous,2022-02-08T06:55:09.185Z,anonymous,SURVEY_FORM_C,1,true
-ca402e02-dc1d-4fc2-9b70-8223b8081f25,2022-02-08T06:55:19.622Z,anonymous,2022-02-08T06:55:19.622Z,anonymous,SURVEY_FORM_A,1,true
-d0d9cd99-8f9a-4916-b7fb-bc1084c6d762,2022-02-08T06:55:30.485Z,anonymous,2022-02-08T06:55:30.485Z,anonymous,SURVEY_FORM_B,1,true
+94cf1581-c4e5-4f57-b5d9-66ea7749bdb1,2022-02-08T06:55:09.185Z,anonymous,2022-02-08T06:55:09.185Z,anonymous,FRE_SURVEY_FORM,1,true

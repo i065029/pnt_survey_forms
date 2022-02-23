@@ -6,19 +6,19 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": "^5.3.2",
-    "@sap/cds-odata-v2-adapter-proxy": "^1.7.11",
-    "@sap/hana-client": "^2.9.28",
+    "@sap/cds": "^5.8.2",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.8.9",
+    "@sap/hana-client": "^2.11.20",
     "@sap/xsenv": "^3.1.1",
-    "@sap/xssec": "^3.2.2",
+    "@sap/xssec": "^3.2.13",
     "cors": "^2.8.5",
-    "express": "^4",
+    "express": "^4.17.3",
     "hdb": "^0.18.3",
     "passport": "^0.4.1"
   },
   "devDependencies": {
     "@sap/hdi-deploy": "4.2.0",
-    "@sap/ux-specification": "^1.90.8",
+    "@sap/ux-specification": "^1.96.4",
     "sqlite3": "^5.0.2"
   },
   "scripts": {
