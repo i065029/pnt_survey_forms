@@ -19,7 +19,7 @@
                         <core:ListItem key='Blank' text=""/>
 				</Select>
 
-				<Label text = "Survey Form" required="true"/>
+				<Label text = "Form Template" required="true"/>
 				<Select showSecondaryValues= "true" selectedKey="{path:'surveyforminstances>/surveyForm'}">
                         <core:ListItem key='Blank' text=""/>
 				</Select>
