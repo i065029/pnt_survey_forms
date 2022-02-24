@@ -1,6 +1,6 @@
 specVersion: '2.4'
 metadata:
-  name: 'formadminui'
+  name: 'forms-admin-ui'
 type: application
 server:
   customMiddleware:
@@ -10,7 +10,7 @@ server:
       ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
       backend:
       - path: /pntsurvey
-        url: https://sap-internal---p-t-cee-y28xjdbpqr3q4bb3-build-pntsurveyapp-srv.cfapps.eu10.hana.ondemand.com
+        url: https://sap-cp-apj-customersuccessteam-cspindev-btpapps-pntsurv5507ee5d.cfapps.ap10.hana.ondemand.com
       ui5:
         path: 
         - /resources
@@ -35,5 +35,5 @@ server:
   - name: fiori-tools-preview
     afterMiddleware: fiori-tools-appreload
     configuration:
-      component: formadminui
-      ui5Theme: sap_fiori_3
+      component: formsadminui
+      ui5Theme: sap_horizon

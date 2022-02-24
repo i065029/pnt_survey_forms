@@ -1,25 +1,25 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Fri Feb 18 2022 19:51:39 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Thu Feb 24 2022 04:20:55 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori-elements|
 |**App Generator Version**<br>1.5.0|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Floorplan Used**<br>List Report Object Page V4|
 |**Service Type**<br>OData Url|
-|**Service URL**<br>https://sap-internal---p-t-cee-y28xjdbpqr3q4bb3-build-pntsurveyapp-srv.cfapps.eu10.hana.ondemand.com/pntsurvey/
-|**Module Name**<br>formadminui|
+|**Service URL**<br>https://sap-cp-apj-customersuccessteam-cspindev-btpapps-pntsurv5507ee5d.cfapps.ap10.hana.ondemand.com/pntsurvey/
+|**Module Name**<br>forms-admin-ui|
 |**Application Title**<br>Maintain Forms|
 |**Namespace**<br>|
-|**UI5 Theme**<br>sap_fiori_3|
+|**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.98.0|
 |**Enable Code Assist Libraries**<br>False|
 |**Add Eslint configuration**<br>False|
-|**Enable Telemetry**<br>True|
+|**Enable Telemetry**<br>False|
 |**Main Entity**<br>SurveyForms|
-|**Navigation Entity**<br>Question|
+|**Navigation Entity**<br>Questions|
 
-## formadminui
+## forms-admin-ui
 
 Administration
 

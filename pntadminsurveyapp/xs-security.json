@@ -1,5 +1,5 @@
 {
-  "xsappname": "formadminui",
+  "xsappname": "formsadminui",
   "tenant-mode": "dedicated",
   "description": "Security profile of called application",
   "scopes": [

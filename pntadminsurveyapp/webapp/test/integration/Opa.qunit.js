@@ -1,15 +1,15 @@
 sap.ui.require(
     [
         'sap/fe/test/JourneyRunner',
-        'formadminui/test/integration/pages/MainListReport' ,
-        'formadminui/test/integration/pages/MainObjectPage',
-        'formadminui/test/integration/OpaJourney'
+        'formsadminui/test/integration/pages/MainListReport' ,
+        'formsadminui/test/integration/pages/MainObjectPage',
+        'formsadminui/test/integration/OpaJourney'
     ],
     function(JourneyRunner, MainListReport, MainObjectPage, Journey) {
         'use strict';
         var JourneyRunner = new JourneyRunner({
             // start index.html in web folder
-            launchUrl: sap.ui.require.toUrl('formadminui') + '/index.html'
+            launchUrl: sap.ui.require.toUrl('formsadminui') + '/index.html'
         });
 
         

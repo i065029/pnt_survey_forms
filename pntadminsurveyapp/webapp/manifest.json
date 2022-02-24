@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "formadminui",
+        "id": "formsadminui",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -37,7 +37,7 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "formadminui-inbound": {
+                "formsadminui-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
@@ -118,7 +118,7 @@
                     ]
                 },
                 {
-                    "pattern": "SurveyForms({key})/Question({key2}):?query:",
+                    "pattern": "SurveyForms({key})/Questions({key2}):?query:",
                     "name": "QuestionsObjectPage",
                     "target": [
                         "SurveyFormsList",
@@ -157,7 +157,7 @@
                             "editableHeaderContent": false,
                             "entitySet": "SurveyForms",
                             "navigation": {
-                                "Question": {
+                                "Questions": {
                                     "detail": {
                                         "route": "QuestionsObjectPage"
                                     }
@@ -179,7 +179,7 @@
                         }
                     },
                     "controlAggregation": "endColumnPages",
-                    "contextPattern": "/SurveyForms({key})/Question({key2})"
+                    "contextPattern": "/SurveyForms({key})/Questions({key2})"
                 }
             },
             "config": {
@@ -216,6 +216,6 @@
     },
     "sap.cloud": {
         "public": true,
-        "service": "formadminui"
+        "service": "formsadminui"
     }
 }

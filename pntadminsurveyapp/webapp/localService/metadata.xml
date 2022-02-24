@@ -31,7 +31,7 @@
                     <NavigationPropertyBinding Path="surveyFormInstance" Target="SurveyFormInstances"/>
                 </EntitySet>
                 <EntitySet Name="SurveyForms" EntityType="SurveyService.SurveyForms">
-                    <NavigationPropertyBinding Path="Question" Target="Questions"/>
+                    <NavigationPropertyBinding Path="Questions" Target="Questions"/>
                     <NavigationPropertyBinding Path="SiblingEntity" Target="SurveyForms"/>
                 </EntitySet>
                 <EntitySet Name="SurveyFormInstances" EntityType="SurveyService.SurveyFormInstances">
@@ -70,7 +70,7 @@
                 <NavigationProperty Name="options" Type="Collection(SurveyService.Options)" Partner="question">
                     <OnDelete Action="Cascade"/>
                 </NavigationProperty>
-                <NavigationProperty Name="surveyForm" Type="SurveyService.SurveyForms" Partner="Question">
+                <NavigationProperty Name="surveyForm" Type="SurveyService.SurveyForms" Partner="Questions">
                     <ReferentialConstraint Property="surveyForm_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
                 <Property Name="surveyForm_ID" Type="Edm.Guid"/>
@@ -91,6 +91,7 @@
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
                 <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="option_label" Type="Edm.String"/>
+                <Property Name="option_no" Type="Edm.Int32"/>
                 <NavigationProperty Name="question" Type="SurveyService.Questions" Partner="options">
                     <ReferentialConstraint Property="question_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
@@ -148,7 +149,7 @@
                 <Property Name="survey_form_name" Type="Edm.String"/>
                 <Property Name="survey_form_version" Type="Edm.Int32"/>
                 <Property Name="activation_status" Type="Edm.Boolean"/>
-                <NavigationProperty Name="Question" Type="Collection(SurveyService.Questions)" Partner="surveyForm">
+                <NavigationProperty Name="Questions" Type="Collection(SurveyService.Questions)" Partner="surveyForm">
                     <OnDelete Action="Cascade"/>
                 </NavigationProperty>
                 <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
@@ -513,6 +514,9 @@
             <Annotations Target="SurveyService.Options/option_label">
                 <Annotation Term="Common.Label" String="Option"/>
             </Annotations>
+            <Annotations Target="SurveyService.Options/option_no">
+                <Annotation Term="Common.Label" String="Option No"/>
+            </Annotations>
             <Annotations Target="SurveyService.Options/question_ID">
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
@@ -584,6 +588,12 @@
                     </Record>
                 </Annotation>
             </Annotations>
+            <Annotations Target="SurveyService.Responses">
+                <Annotation Term="UI.DeleteHidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="SurveyService.EntityContainer/Responses">
+                <Annotation Term="UI.DeleteHidden" Bool="true"/>
+            </Annotations>
             <Annotations Target="SurveyService.Responses/createdAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Immutable" Bool="true"/>
@@ -651,7 +661,7 @@
                         </Record>
                         <Record Type="UI.ReferenceFacet">
                             <PropertyValue Property="Label" String="Questions"/>
-                            <PropertyValue Property="Target" AnnotationPath="Question/@UI.LineItem"/>
+                            <PropertyValue Property="Target" AnnotationPath="Questions/@UI.LineItem"/>
                             <PropertyValue Property="ID" String="questions"/>
                         </Record>
                     </Collection>
