@@ -16,7 +16,6 @@ entity Question : managed {
     key ID        : UUID  @(Core.Computed : true);
     @title : 'Question No' question_no     : Integer;
     @title : 'Question' question_label     : String;
-    // @title : 'Question Type' question_type : question_type;
     @title : 'Question Type' question_type : Association to QuestionType;
     options                                : Composition of many Option
                                                  on options.question = $self;
@@ -28,18 +27,9 @@ entity SurveyForm : managed {
     @title : 'Form Name' survey_form_name       : String;
     @title : 'Form Version' survey_form_version : Integer;
     @title : 'Status' activation_status         : Boolean;
-    // surveyFormQuestion                          : Association to many SurveyFormQuestion
-    //                                                   on surveyFormQuestion.surveyForm = $self;
     Questions                                   : Composition of many Question
                                                       on Questions.surveyForm = $self;
 }
-
-// entity SurveyFormQuestion : managed {
-//     key ID        : UUID  @(Core.Computed : true);
-//     @title : 'Sequence' sequence : Integer;
-//     question                     : Association to Question;
-//     surveyForm                   : Association to SurveyForm;
-// }
 
 entity Region : cuid, managed {
     @title : 'Region' region_name : String;
@@ -74,12 +64,6 @@ entity Answer : cuid, managed {
     response                 : Association to Response;
     question                 : Association to Question;
 }
-
-// type question_type : Integer enum {
-//     Radiobutton = 1;
-//     Checkbox    = 2;
-//     Textbox     = 3;
-// }
 
 entity CommonCodeList : common.CodeList {
     key code : String(20);
