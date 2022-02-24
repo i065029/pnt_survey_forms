@@ -18,7 +18,11 @@ sap.ui.define([
                     }).then(function (_oDialog) {
                         this._oDialog = _oDialog;
                         this._oDialog.setModel(new JSONModel(), "surveyforminstances");
-
+                        expiryDateControl = this._oDialog.getContent()[0].getContent()[9];
+                        const today = new Date();
+                        let tomorrow = new Date();
+                        tomorrow.setDate(today.getDate() + 1);
+                        expiryDateControl.setMinDate(tomorrow);
                         // Update Region Value List
                         surveyform.getRegions().then(function (oData) {
                             var selControlRegion = that._oDialog.getContent()[0].getContent()[1];
@@ -26,7 +30,7 @@ sap.ui.define([
                                 var newItemPso = new sap.ui.core.ListItem({
                                     key: oData.value[region].ID,
                                     text: oData.value[region].region_name,
-                                    icon: "sap-icon://activity-individual"
+                                    icon: "sap-icon://addresses"
                                 });
                                 selControlRegion.addItem(newItemPso);
                             }
@@ -40,7 +44,7 @@ sap.ui.define([
                                     key: oData.value[surveyform].ID,
                                     text: oData.value[surveyform].survey_form_name,
                                     additionalText: oData.value[surveyform].survey_form_version,
-                                    icon: "sap-icon://activity-individual"
+                                    icon: "sap-icon://form"
                                 });
                                 selControlSurveyForms.addItem(newItemPso);
                             }
