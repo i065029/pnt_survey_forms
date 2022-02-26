@@ -1,2 +1,2 @@
-﻿ID,createdAt,createdBy,modifiedAt,modifiedBy,survey_form_name,survey_form_version,activation_status
-94cf1581-c4e5-4f57-b5d9-66ea7749bdb1,2022-02-08T06:55:09.185Z,anonymous,2022-02-08T06:55:09.185Z,anonymous,FRE_SURVEY_FORM,1,true
+﻿ID,createdAt,createdBy,modifiedAt,modifiedBy,survey_form_name,survey_form_version,activation_status_code
+94cf1581-c4e5-4f57-b5d9-66ea7749bdb1,2022-02-08T06:55:09.185Z,anonymous,2022-02-08T06:55:09.185Z,anonymous,FRE_SURVEY_FORM,1,0

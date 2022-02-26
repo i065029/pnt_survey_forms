@@ -131,7 +131,7 @@ sap.ui.define([
                         "customer_email": customerEmail[ce],
                         "expiry_date": expiryDate,
                         "reminder_interval": reminder_interval,
-                        "filled_status": false,
+                        "filled_status_code": "0",
                         "region_ID": this._oDialog.getModel("surveyforminstances").getData()['region'],
                         "customer_ID": this._oDialog.getModel("surveyforminstances").getData()['customer'],
                         "surveyForm_ID": this._oDialog.getModel("surveyforminstances").getData()['surveyForm']

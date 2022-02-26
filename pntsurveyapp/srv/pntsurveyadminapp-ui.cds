@@ -16,7 +16,7 @@ annotate service.SurveyForms @(UI : {
         } */
     },
 
-    SelectionFields  : [ survey_form_name, activation_status],
+    SelectionFields  : [ survey_form_name, activation_status_code],
     // Presentation in the List Report
     LineItem         : [
 
@@ -29,7 +29,7 @@ annotate service.SurveyForms @(UI : {
             Label : 'Version'
         },
         {
-            Value : activation_status,
+            Value : activation_status.name,
             Label : 'Status'
         }
         //we can add a discription as well
@@ -62,7 +62,7 @@ annotate service.SurveyForms @(UI : {
             Label : 'Version'
         },
         {
-            Value : activation_status,
+            Value : activation_status_code,
             Label : 'Status'
         }
 //we can add a discription as well

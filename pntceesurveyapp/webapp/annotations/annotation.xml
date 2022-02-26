@@ -1,182 +1,18 @@
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
-        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common" />
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
     </edmx:Reference>
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
-        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
     </edmx:Reference>
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
-        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication" />
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
     </edmx:Reference>
     <edmx:Reference Uri="/pntsurvey/$metadata">
-        <edmx:Include Namespace="SurveyService" />
+        <edmx:Include Namespace="SurveyService"/>
     </edmx:Reference>
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="pntceesurveyapp">
-            <Annotations Target="SurveyService.Responses">
-                <Annotation Term="UI.LineItem">
-                    <Collection>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="{@i18n>surveyFormInstence}" />
-                            <PropertyValue Property="Value" Path="surveyFormInstance_ID" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="surveyFormInstance/region/region_name" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="surveyFormInstance/customer/customer_id" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="surveyFormInstance/customer/customer_name" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="surveyFormInstance/filled_status" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="surveyFormInstance/customer_email" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="surveyFormInstance/expiry_date" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="surveyFormInstance/reminder_interval" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm/survey_form_name" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm/survey_form_version" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="createdAt" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="createdBy" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="modifiedAt" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="modifiedBy" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="{@i18n>regionId}" />
-                            <PropertyValue Property="Value" Path="surveyFormInstance/region_ID" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="{@i18n>customerId}" />
-                            <PropertyValue Property="Value" Path="surveyFormInstance/customer_ID" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="{@i18n>surveyFormId}" />
-                            <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm_ID" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="{@i18n>responseId}" />
-                            <PropertyValue Property="Value" Path="ID" />
-                        </Record>
-                    </Collection>
-                </Annotation>
-                <Annotation Term="UI.FieldGroup" Qualifier="General">
-                    <Record Type="UI.FieldGroupType">
-                        <PropertyValue Property="Data">
-                            <Collection>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="{@i18n>surveyFormInstence}" />
-                                    <PropertyValue Property="Value" Path="surveyFormInstance_ID" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/region/region_name" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/customer/customer_id" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/customer/customer_name" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/filled_status" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/customer_email" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/expiry_date" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/reminder_interval" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm/survey_form_name" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm/survey_form_version" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="createdAt" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="createdBy" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="modifiedAt" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="modifiedBy" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="{@i18n>regionId}" />
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/region_ID" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="{@i18n>customerId}" />
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/customer_ID" />
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="{@i18n>surveyFormId}" />
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm_ID" />
-                                </Record>
-                                <Record Type="UI.DataFieldWithUrl">
-                                    <PropertyValue Property="Label" String="{@i18n>responseId}" />
-                                    <PropertyValue Property="Value" Path="ID" />
-                                    <PropertyValue Property="Url">
-                                        <Apply Function="odata.concat">
-                                            <String>https://survey-form-customer-persona-insightful-wombat-gb.cfapps.ap10.hana.ondemand.com/?id=</String>
-                                            <Path>ID</Path>
-                                        </Apply>
-                                    </PropertyValue>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="UI.Facets">
-                    <Collection>
-                        <Record Type="UI.ReferenceFacet">
-                            <PropertyValue Property="ID" String="General" />
-                            <PropertyValue Property="Label" String="{@i18n>generalInformation}" />
-                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#General" />
-                        </Record>
-                    </Collection>
-                </Annotation>
-                <Annotation Term="UI.SelectionFields">
-                    <Collection>
-                        <PropertyPath>surveyFormInstance/region/region_name</PropertyPath>
-                        <PropertyPath>surveyFormInstance/customer/customer_id</PropertyPath>
-                        <PropertyPath>surveyFormInstance/customer/customer_name</PropertyPath>
-                        <PropertyPath>surveyFormInstance/customer_email</PropertyPath>
-                        <PropertyPath>surveyFormInstance/surveyForm/survey_form_name</PropertyPath>
-                        <PropertyPath>surveyFormInstance/filled_status</PropertyPath>
-                    </Collection>
-                </Annotation>
-                <!-- <Annotation Term="UI.FilterFacets">
-                    <Collection>
-                        <Record Type="UI.ReferenceFacet">
-                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#General" />
-                        </Record>
-                    </Collection>
-                </Annotation> -->
-            </Annotations>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>

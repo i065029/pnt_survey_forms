@@ -13,22 +13,22 @@ entity Option : cuid, managed {
 }
 
 entity Question : managed {
-    key ID        : UUID  @(Core.Computed : true);
-    @title : 'Question No' question_no     : Integer;
-    @title : 'Question' question_label     : String;
-    @title : 'Question Type' question_type : Association to QuestionType;
-    options                                : Composition of many Option
-                                                 on options.question = $self;
-    surveyForm                             : Association to SurveyForm;
+    key ID                                     : UUID @(Core.Computed : true);
+        @title : 'Question No' question_no     : Integer;
+        @title : 'Question' question_label     : String;
+        @title : 'Question Type' question_type : Association to QuestionType;
+        options                                : Composition of many Option
+                                                     on options.question = $self;
+        surveyForm                             : Association to SurveyForm;
 }
 
 entity SurveyForm : managed {
-    key ID        : UUID  @(Core.Computed : true);
-    @title : 'Form Name' survey_form_name       : String;
-    @title : 'Form Version' survey_form_version : Integer;
-    @title : 'Status' activation_status         : Boolean;
-    Questions                                   : Composition of many Question
-                                                      on Questions.surveyForm = $self;
+    key ID                                          : UUID @(Core.Computed : true);
+        @title : 'Form Name' survey_form_name       : String;
+        @title : 'Form Version' survey_form_version : Integer;
+        @title : 'Status' activation_status         : Association to ActivationStatusType;
+        Questions                                   : Composition of many Question
+                                                          on Questions.surveyForm = $self;
 }
 
 entity Region : cuid, managed {
@@ -47,7 +47,7 @@ entity SurveyFormInstance : cuid, managed {
     @title : 'Customer Email' customer_email : String;
     @title : 'Expiry Date' expiry_date       : Date;
     @title : 'Reminder' reminder_interval    : Integer;
-    @title : 'Status' filled_status          : Boolean;
+    @title : 'Status' filled_status          : Association to FilledStatusType;
     region                                   : Association to Region;
     customer                                 : Association to Customer;
     surveyForm                               : Association to SurveyForm;
@@ -70,3 +70,5 @@ entity CommonCodeList : common.CodeList {
 }
 
 entity QuestionType : CommonCodeList {}
+entity FilledStatusType : CommonCodeList {}
+entity ActivationStatusType : CommonCodeList {}

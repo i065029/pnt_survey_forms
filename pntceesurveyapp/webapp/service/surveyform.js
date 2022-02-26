@@ -90,7 +90,7 @@ sap.ui.define([], function () {
             return new Promise(function (oResolve, oReject) {
                 $.ajax({
                     type: "GET",
-                    url: "./pntsurvey/SurveyForms",
+                    url: "./pntsurvey/SurveyForms?filter=activation_status_code eq '0'",
                     data: JSON.stringify(oData),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
