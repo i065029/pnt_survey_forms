@@ -623,18 +623,19 @@
                 <Annotation Term="Common.Label" String="Answer"/>
             </Annotations>
             <Annotations Target="SurveyService.Responses">
-                <Annotation Term="UI.DeleteHidden" Bool="true"/>
                 <Annotation Term="UI.HeaderInfo">
                     <Record Type="UI.HeaderInfoType">
                         <PropertyValue Property="TypeName" String="Survey Form"/>
                         <PropertyValue Property="TypeNamePlural" String="Survey Forms"/>
                         <PropertyValue Property="Title">
                             <Record Type="UI.DataField">
+                                <PropertyValue Property="Label" String="Status"/>
                                 <PropertyValue Property="Value" Path="surveyFormInstance/filled_status/name"/>
                             </Record>
                         </PropertyValue>
                         <PropertyValue Property="Description">
                             <Record Type="UI.DataField">
+                                <PropertyValue Property="Label" String="Survey Form"/>
                                 <PropertyValue Property="Value" Path="surveyFormInstance/ID"/>
                             </Record>
                         </PropertyValue>
@@ -716,6 +717,11 @@
                             <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Form"/>
                             <PropertyValue Property="ID" String="form"/>
                         </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Additional Details"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Addition"/>
+                            <PropertyValue Property="ID" String="addition"/>
+                        </Record>
                     </Collection>
                 </Annotation>
                 <Annotation Term="UI.FieldGroup" Qualifier="General">
@@ -770,6 +776,14 @@
                                     <PropertyValue Property="Value" Path="surveyFormInstance/reminder_interval"/>
                                     <PropertyValue Property="Label" String="Reminder(In Days)"/>
                                 </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Addition">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm/survey_form_name"/>
                                     <PropertyValue Property="Label" String="Form Template"/>
@@ -792,9 +806,6 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-            </Annotations>
-            <Annotations Target="SurveyService.EntityContainer/Responses">
-                <Annotation Term="UI.DeleteHidden" Bool="true"/>
             </Annotations>
             <Annotations Target="SurveyService.Responses/createdAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>

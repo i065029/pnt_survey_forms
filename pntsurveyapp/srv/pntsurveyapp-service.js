@@ -3,41 +3,56 @@
 */
 const cds = require('@sap/cds')
 
+const { Responses, Answers, SurveyFormInstances } = cds.entities("SurveyService");
+
 /**
  * DELETE Response (Before)
  * 
  * @param {Object} req Standard CDS request object 
  */
-let onDeleteBeforeResponses = async (req) => {
+const onDeleteBeforeResponses = async (req) => {
     const { ID } = req.data;
     const tx = cds.transaction(req);
 
     // Check if a Response exists
-    let dbSResponses = await tx.run(SELECT.one.from(Response).where({ ID }));
-    if (!dbSResponses) {
+    const dbResponses = await tx.run(SELECT.from(Responses).where({ ID }));
+    if (!dbResponses) {
         return req.error(400, `Response ${ID} not found.`);
     }
 
     // Delete Answers
-    let checkAnswerDel = await tx.run(DELETE.from(Answer).where({ response: ID }));
+    let checkAnswerDel = await tx.run(DELETE.from(Answers).where({ response_ID: ID }));
     // Delete sanity check
-    if (checkAnswerDel !== 1) {
+    if (checkAnswerDel < 1) {
         tx.rollback();
-        return req.error(400, "Answer Deletion Failed");
+        return req.error(400, `Response ${ID} Deletion Failed (a).`);
     }
 
     // Delete Survey Form Instances
-    let checkSFIDel = await tx.run(DELETE.from(SurveyFormInstance).where({ ID: dbSResponses.surveyFormInstance }));
+    let checkSFIDel = await tx.run(DELETE.from(SurveyFormInstances).where({ ID: dbResponses[0].surveyFormInstance_ID }));
     // Delete sanity check
     if (checkSFIDel !== 1) {
         tx.rollback();
-        return req.error(400, "Survey Form Deletion Failed");
+        return req.error(400, `Response ${ID} Deletion Failed (sf).`);
     }
+
+    return dbResponses;
+
+};
+
+/**
+ * Trigger Email
+ * 
+ * @param {Object} req Standard CDS request object 
+ */
+let onTriggerEmail = async (req) => {
+    const { ResponseId, Email, Customer, CEE } = req.data;
 };
 
 module.exports = cds.service.impl((srv) => {
-
     // Register Handlers for DELETE Response
     srv.before("DELETE", "Responses", onDeleteBeforeResponses);
-    
+
+    srv.on("triggerEmail", onTriggerEmail);
+
 });

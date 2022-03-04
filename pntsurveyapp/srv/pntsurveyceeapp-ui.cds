@@ -1,20 +1,22 @@
 using SurveyService as service from './pntsurveyapp-service';
 
 annotate service.Responses @(UI : {
-    HeaderInfo          : {
+    HeaderInfo           : {
         TypeName       : 'Survey Form',
         TypeNamePlural : 'Survey Forms',
 
         Title          : {
             $Type : 'UI.DataField',
+            Label : 'Status',
             Value : surveyFormInstance.filled_status.name
         },
         Description    : {
             $Type : 'UI.DataField',
+            Label : 'Survey Form',
             Value : surveyFormInstance.ID
         }
     },
-    SelectionFields     : [
+    SelectionFields      : [
         surveyFormInstance.region.region_name,
         surveyFormInstance.customer.customer_id,
         surveyFormInstance.customer.customer_name,
@@ -22,7 +24,7 @@ annotate service.Responses @(UI : {
         surveyFormInstance.surveyForm.survey_form_name,
         surveyFormInstance.filled_status_code
     ],
-    LineItem            : [
+    LineItem             : [
         {
             Value : surveyFormInstance_ID,
             Label : 'Survey Form'
@@ -76,7 +78,7 @@ annotate service.Responses @(UI : {
             }, },
         }
     ],
-    Facets              : [
+    Facets               : [
 
         {
             $Type  : 'UI.ReferenceFacet',
@@ -89,10 +91,16 @@ annotate service.Responses @(UI : {
             Label  : 'Form Details',
             Target : '@UI.FieldGroup#Form',
             ID     : 'form'
+        },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : 'Additional Details',
+            Target : '@UI.FieldGroup#Addition',
+            ID     : 'addition'
         }
 
     ],
-    FieldGroup #General : {Data : [
+    FieldGroup #General  : {Data : [
         {
             Value : createdBy,
             Label : 'Created By'
@@ -110,7 +118,7 @@ annotate service.Responses @(UI : {
             Label : 'Modified At'
         }
     ]},
-    FieldGroup #Form    : {Data : [
+    FieldGroup #Form     : {Data : [
         {
             Value : surveyFormInstance.region.region_name,
             Label : 'Region'
@@ -134,7 +142,9 @@ annotate service.Responses @(UI : {
         {
             Value : surveyFormInstance.reminder_interval,
             Label : 'Reminder(In Days)'
-        },
+        }
+    ]},
+    FieldGroup #Addition : {Data : [
         {
             Value : surveyFormInstance.surveyForm.survey_form_name,
             Label : 'Form Template'
