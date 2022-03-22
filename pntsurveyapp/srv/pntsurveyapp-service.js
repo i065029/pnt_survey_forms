@@ -1,7 +1,10 @@
 /**
 * Implementation for PntSurveyAppService defined in ./pntsurveyapp-service.cds
 */
-const cds = require('@sap/cds')
+const cds = require('@sap/cds');
+// const SapCfMailer = require('sap-cf-mailer').default;
+// const transporter = new SapCfMailer("mailtrap");
+
 
 const { Responses, Answers, SurveyFormInstances } = cds.entities("SurveyService");
 
@@ -47,12 +50,20 @@ const onDeleteBeforeResponses = async (req) => {
  */
 let onTriggerEmail = async (req) => {
     const { ResponseId, Email, Customer, CEE } = req.data;
+
+    // // use sendmail as you should use it in nodemailer
+    // const result = await transporter.sendMail({
+    //     to: 'rajiv.shivdev.pandey@sap.com',
+    //     subject: `This is the mail subject`,
+    //     text: `body of the email`
+    //   });
+    //   return JSON.stringify(result);
 };
 
 module.exports = cds.service.impl((srv) => {
     // Register Handlers for DELETE Response
     srv.before("DELETE", "Responses", onDeleteBeforeResponses);
-
+    // Trigger Email to customer with survey Link
     srv.on("triggerEmail", onTriggerEmail);
 
 });

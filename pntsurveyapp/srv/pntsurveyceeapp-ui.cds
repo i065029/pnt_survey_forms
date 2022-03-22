@@ -20,6 +20,7 @@ annotate service.Responses @(UI : {
         surveyFormInstance.region.region_name,
         surveyFormInstance.customer.customer_id,
         surveyFormInstance.customer.customer_name,
+        surveyFormInstance.initiated_by,
         surveyFormInstance.customer_email,
         surveyFormInstance.surveyForm.survey_form_name,
         surveyFormInstance.filled_status_code
@@ -44,6 +45,10 @@ annotate service.Responses @(UI : {
         {
             Value : surveyFormInstance.customer_email,
             Label : 'Customer Email'
+        },
+        {
+            Value : surveyFormInstance.initiated_by,
+            Label : 'Initiate By'
         },
         {
             Value : surveyFormInstance.filled_status.name,
@@ -102,7 +107,7 @@ annotate service.Responses @(UI : {
     ],
     FieldGroup #General  : {Data : [
         {
-            Value : createdBy,
+            Value : surveyFormInstance.initiated_by,
             Label : 'Created By'
         },
         {
@@ -110,7 +115,7 @@ annotate service.Responses @(UI : {
             Label : 'Created At'
         },
         {
-            Value : modifiedBy,
+            Value : surveyFormInstance.processed_by,
             Label : 'Modified By'
         },
         {

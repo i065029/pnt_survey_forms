@@ -1,7 +1,7 @@
 {
   "name": "pntsurveyapp",
   "version": "1.0.0",
-  "description": "A simple CAP project.",
+  "description": "P&T Survey App",
   "repository": "<Add your repository here>",
   "license": "UNLICENSED",
   "private": true,
@@ -14,7 +14,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "hdb": "^0.18.3",
-    "passport": "^0.4.1"
+    "passport": "^0.4.1",
+    "sap-cf-mailer": "0.0.5"
   },
   "devDependencies": {
     "@sap/hdi-deploy": "4.2.0",
