@@ -6,7 +6,7 @@
       "source": "^/pntsurvey/(.*)$",
       "target": "/pntsurvey/$1",
       "destination": "pntsurveyapp",
-      "authenticationType": "none",
+      "authenticationType": "xsuaa",
       "csrfProtection": false
     },
     {

@@ -47,8 +47,6 @@ entity SurveyFormInstance : cuid, managed {
     @title : 'Customer Email' customer_email : String;
     @title : 'Expiry Date' expiry_date       : Date;
     @title : 'Reminder' reminder_interval    : Integer;
-    @title : 'Initiate By' initiated_by      : String;
-    @title : 'Processed By' processed_by     : String;
     @title : 'Status' filled_status          : Association to FilledStatusType;
     region                                   : Association to Region;
     customer                                 : Association to Customer;

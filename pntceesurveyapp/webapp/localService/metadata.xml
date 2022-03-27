@@ -62,6 +62,7 @@
                 <EntitySet Name="QuestionType_texts" EntityType="SurveyService.QuestionType_texts"/>
                 <EntitySet Name="ActivationStatusType_texts" EntityType="SurveyService.ActivationStatusType_texts"/>
                 <EntitySet Name="FilledStatusType_texts" EntityType="SurveyService.FilledStatusType_texts"/>
+                <FunctionImport Name="triggerEmail" Function="SurveyService.triggerEmail"/>
             </EntityContainer>
             <EntityType Name="Questions">
                 <Key>
@@ -339,6 +340,12 @@
                 <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
                 <ReturnType Type="SurveyService.SurveyForms"/>
             </Action>
+            <Function Name="triggerEmail" IsBound="false" IsComposable="false">
+                <Parameter Name="ResponseId" Type="Edm.Guid"/>
+                <Parameter Name="Email" Type="Edm.String"/>
+                <Parameter Name="Customer" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Function>
             <Annotations Target="SurveyService.Questions">
                 <Annotation Term="UI.HeaderInfo">
                     <Record Type="UI.HeaderInfoType">
@@ -646,6 +653,7 @@
                         <PropertyPath>surveyFormInstance/region/region_name</PropertyPath>
                         <PropertyPath>surveyFormInstance/customer/customer_id</PropertyPath>
                         <PropertyPath>surveyFormInstance/customer/customer_name</PropertyPath>
+                        <PropertyPath>surveyFormInstance/createdBy</PropertyPath>
                         <PropertyPath>surveyFormInstance/customer_email</PropertyPath>
                         <PropertyPath>surveyFormInstance/surveyForm/survey_form_name</PropertyPath>
                         <PropertyPath>surveyFormInstance/filled_status_code</PropertyPath>
@@ -672,6 +680,10 @@
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="surveyFormInstance/customer_email"/>
                             <PropertyValue Property="Label" String="Customer Email"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/createdBy"/>
+                            <PropertyValue Property="Label" String="Initiate By"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="surveyFormInstance/filled_status/name"/>
@@ -729,7 +741,7 @@
                         <PropertyValue Property="Data">
                             <Collection>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="createdBy"/>
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/createdBy"/>
                                     <PropertyValue Property="Label" String="Created By"/>
                                 </Record>
                                 <Record Type="UI.DataField">
@@ -737,7 +749,7 @@
                                     <PropertyValue Property="Label" String="Created At"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="modifiedBy"/>
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/modifiedBy"/>
                                     <PropertyValue Property="Label" String="Modified By"/>
                                 </Record>
                                 <Record Type="UI.DataField">
@@ -1162,6 +1174,12 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+            </Annotations>
+            <Annotations Target="SurveyService.triggerEmail(Edm.Guid,Edm.String,Edm.String)/Email">
+                <Annotation Term="Common.Label" String="Customer Email"/>
+            </Annotations>
+            <Annotations Target="SurveyService.triggerEmail(Edm.Guid,Edm.String,Edm.String)/Customer">
+                <Annotation Term="Common.Label" String="Customer"/>
             </Annotations>
             <Annotations Target="SurveyService.QuestionType">
                 <Annotation Term="UI.Identification">
