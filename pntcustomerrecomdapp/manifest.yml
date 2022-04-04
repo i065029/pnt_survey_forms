@@ -1,0 +1,6 @@
+---
+applications:
+- name: survey-form-customer-persona
+  random-route: true
+  buildpack: staticfile_buildpack
+  memory: 512M

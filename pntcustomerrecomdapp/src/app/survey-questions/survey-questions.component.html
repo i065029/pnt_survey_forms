@@ -1,0 +1,58 @@
+<mat-toolbar class="header-toolbar">
+    <img src="../../assets/images/SAP-logo.png" class="sap-logo">
+    <span class="spacer"></span>
+    <span class="welcome-msg">Welcome</span>
+    <span *ngIf="questions" class="user-name">{{questions?.surveyFormInstance.customer_email}}</span>
+    <span *ngIf="questions" class="user-name">{{"("+questions?.surveyFormInstance.customer.customer_name+")"}}</span>
+</mat-toolbar>
+<div class="expiry-text-container" *ngIf="expiryText">
+    <h1 class="expiry-text">Sorry... Your Form Has Expired !!</h1>
+</div>
+<div class="parentContainer parent-container-image" *ngIf="!expiryText && sortedQuestions.length > 0; else spinner">
+    <br /><br /><br />
+    <div class="childContainer" *ngFor="let q of sortedQuestions; let i = index">
+        <p class="question">
+            {{i+1}}. {{q.question_label}}
+        </p>
+        <div *ngIf="q.question_type_code==1">
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+                <mat-radio-button class="example-radio-button" *ngFor="let o of q.options; let j = index" name="radio"
+                    [checked]="setChecked(i,o.option_label)" [value]="o.option_label" #radioValue  
+                    (change)="populatePayload(i,q.ID,questions.answers[0].response_ID,radioValue.value,questions.surveyFormInstance.customer.ID,q.question_type_code,$event)">
+                    {{o.option_label}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div *ngIf="q.question_type_code==2">
+            <section>
+                <div *ngFor="let o of q.options" class="checkbox-group checkbox-container">
+                    <mat-checkbox formControlName="pepperoni" [value]="o.option_label" #checkBoxValue
+                        class="checkbox-texts" [checked]="setCheckboxChecked(i,o.option_label)"
+                        (change)="populatePayload(i,q.ID,questions.answers[0].response_ID,checkBoxValue.value,questions.surveyFormInstance.customer.ID,q.question_type_code,$event)">
+                        {{o.option_label}}
+                    </mat-checkbox>
+                </div>
+            </section>
+        </div>
+        <div *ngIf="q.question_type_code==3">
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label class="comment-label">Leave a comment</mat-label>
+                <textarea matInput #inputBoxValue [value]="setValue(i)"
+                    (change)="populatePayload(i,q.ID,questions.answers[0].response_ID,inputBoxValue.value,questions.surveyFormInstance.customer.ID,q.question_type_code,$event)"></textarea>
+            </mat-form-field>
+        </div>
+        <br />
+        <mat-divider></mat-divider>
+    </div>
+    <br />
+    <div class="button-container">
+        <button *ngIf="sortedQuestions.length > 0" mat-raised-button color="primary" class="final-button"
+            (click)="submitForm()" [disabled]="submitButtonDisable || resetFlag">Submit</button>
+        <button *ngIf="sortedQuestions.length > 0" mat-raised-button color="primary" class="final-button"
+            (click)="resetForm()">Reset</button>
+    </div>
+    <br />
+</div>
+<ng-template #spinner>
+    <mat-spinner class="loading-spinner" *ngIf="!expiryText"></mat-spinner>
+</ng-template>
