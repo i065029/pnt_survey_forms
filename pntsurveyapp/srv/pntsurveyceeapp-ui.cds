@@ -82,6 +82,7 @@ annotate service.Responses @(UI : {
             Url   : {$edmJson : {
                 $Apply    : [
                     'https://survey-form-customer-persona-insightful-wombat-gb.cfapps.ap10.hana.ondemand.com/?id=',
+                    // 'https://survey-form-customer-persona-chipper-kudu-zm.cfapps.ap10.hana.ondemand.com/?id=',
                     {$Path : 'ID', },
                 ],
                 $Function : 'odata.concat',
@@ -170,6 +171,7 @@ annotate service.Responses @(UI : {
             Url   : {$edmJson : {
                 $Apply    : [
                     'https://survey-form-customer-persona-insightful-wombat-gb.cfapps.ap10.hana.ondemand.com/?id=',
+                    // 'https://survey-form-customer-persona-chipper-kudu-zm.cfapps.ap10.hana.ondemand.com/?id=',
                     {$Path : 'ID', },
                 ],
                 $Function : 'odata.concat',
