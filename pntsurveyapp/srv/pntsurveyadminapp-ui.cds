@@ -4,7 +4,7 @@ annotate service.SurveyForms @(UI : {
 
    HeaderInfo       : {
         TypeName       : 'SurveyForm',
-        TypeNamePlural : 'SurveyForms',
+        TypeNamePlural : 'Recommender Forms',
       
         Title          : {
             $Type : 'UI.DataField',
@@ -19,7 +19,6 @@ annotate service.SurveyForms @(UI : {
     SelectionFields  : [ survey_form_name, activation_status_code],
     // Presentation in the List Report
     LineItem         : [
-
         {
             Value : survey_form_name,
             Label : 'Form Name'
@@ -169,7 +168,11 @@ annotate service.Options @(UI : {
     SelectionFields  : [],
     // Presentation in the List Report
     LineItem         : [
-
+        {
+            $Type : 'UI.DataField',
+            Value : option_no, // Option serial number
+            Label : 'S No.'
+        },
         {
             Value : option_label, // option string
             Label : 'Options'

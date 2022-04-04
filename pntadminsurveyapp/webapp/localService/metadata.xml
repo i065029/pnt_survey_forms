@@ -31,10 +31,12 @@
                     <NavigationPropertyBinding Path="surveyFormInstance" Target="SurveyFormInstances"/>
                 </EntitySet>
                 <EntitySet Name="SurveyForms" EntityType="SurveyService.SurveyForms">
+                    <NavigationPropertyBinding Path="activation_status" Target="ActivationStatusType"/>
                     <NavigationPropertyBinding Path="Questions" Target="Questions"/>
                     <NavigationPropertyBinding Path="SiblingEntity" Target="SurveyForms"/>
                 </EntitySet>
                 <EntitySet Name="SurveyFormInstances" EntityType="SurveyService.SurveyFormInstances">
+                    <NavigationPropertyBinding Path="filled_status" Target="FilledStatusType"/>
                     <NavigationPropertyBinding Path="region" Target="Regions"/>
                     <NavigationPropertyBinding Path="customer" Target="Customers"/>
                     <NavigationPropertyBinding Path="surveyForm" Target="SurveyForms"/>
@@ -49,7 +51,18 @@
                     <NavigationPropertyBinding Path="texts" Target="QuestionType_texts"/>
                     <NavigationPropertyBinding Path="localized" Target="QuestionType_texts"/>
                 </EntitySet>
+                <EntitySet Name="ActivationStatusType" EntityType="SurveyService.ActivationStatusType">
+                    <NavigationPropertyBinding Path="texts" Target="ActivationStatusType_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="ActivationStatusType_texts"/>
+                </EntitySet>
+                <EntitySet Name="FilledStatusType" EntityType="SurveyService.FilledStatusType">
+                    <NavigationPropertyBinding Path="texts" Target="FilledStatusType_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="FilledStatusType_texts"/>
+                </EntitySet>
                 <EntitySet Name="QuestionType_texts" EntityType="SurveyService.QuestionType_texts"/>
+                <EntitySet Name="ActivationStatusType_texts" EntityType="SurveyService.ActivationStatusType_texts"/>
+                <EntitySet Name="FilledStatusType_texts" EntityType="SurveyService.FilledStatusType_texts"/>
+                <FunctionImport Name="triggerEmail" Function="SurveyService.triggerEmail"/>
             </EntityContainer>
             <EntityType Name="Questions">
                 <Key>
@@ -148,7 +161,10 @@
                 <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
                 <Property Name="survey_form_name" Type="Edm.String"/>
                 <Property Name="survey_form_version" Type="Edm.Int32"/>
-                <Property Name="activation_status" Type="Edm.Boolean"/>
+                <NavigationProperty Name="activation_status" Type="SurveyService.ActivationStatusType">
+                    <ReferentialConstraint Property="activation_status_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="activation_status_code" Type="Edm.String" MaxLength="20"/>
                 <NavigationProperty Name="Questions" Type="Collection(SurveyService.Questions)" Partner="surveyForm">
                     <OnDelete Action="Cascade"/>
                 </NavigationProperty>
@@ -170,7 +186,12 @@
                 <Property Name="customer_email" Type="Edm.String"/>
                 <Property Name="expiry_date" Type="Edm.Date"/>
                 <Property Name="reminder_interval" Type="Edm.Int32"/>
-                <Property Name="filled_status" Type="Edm.Boolean"/>
+                <NavigationProperty Name="filled_status" Type="SurveyService.FilledStatusType">
+                    <ReferentialConstraint Property="filled_status_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="filled_status_code" Type="Edm.String" MaxLength="20"/>
+                <Property Name="init_by" Type="Edm.String"/>
+                <Property Name="init_name" Type="Edm.String"/>
                 <NavigationProperty Name="region" Type="SurveyService.Regions">
                     <ReferentialConstraint Property="region_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
@@ -226,6 +247,34 @@
                     <ReferentialConstraint Property="code" ReferencedProperty="code"/>
                 </NavigationProperty>
             </EntityType>
+            <EntityType Name="ActivationStatusType">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="20" Nullable="false"/>
+                <NavigationProperty Name="texts" Type="Collection(SurveyService.ActivationStatusType_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="SurveyService.ActivationStatusType_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="FilledStatusType">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="20" Nullable="false"/>
+                <NavigationProperty Name="texts" Type="Collection(SurveyService.FilledStatusType_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="SurveyService.FilledStatusType_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
             <EntityType Name="DraftAdministrativeData">
                 <Key>
                     <PropertyRef Name="DraftUUID"/>
@@ -240,6 +289,26 @@
                 <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
             </EntityType>
             <EntityType Name="QuestionType_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="20" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="ActivationStatusType_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="20" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="FilledStatusType_texts">
                 <Key>
                     <PropertyRef Name="locale"/>
                     <PropertyRef Name="code"/>
@@ -273,6 +342,12 @@
                 <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
                 <ReturnType Type="SurveyService.SurveyForms"/>
             </Action>
+            <Function Name="triggerEmail" IsBound="false" IsComposable="false">
+                <Parameter Name="ResponseId" Type="Edm.Guid"/>
+                <Parameter Name="Email" Type="Edm.String"/>
+                <Parameter Name="Customer" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Function>
             <Annotations Target="SurveyService.Questions">
                 <Annotation Term="UI.HeaderInfo">
                     <Record Type="UI.HeaderInfoType">
@@ -471,6 +546,10 @@
                 <Annotation Term="UI.LineItem">
                     <Collection>
                         <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="option_no"/>
+                            <PropertyValue Property="Label" String="S No."/>
+                        </Record>
+                        <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="option_label"/>
                             <PropertyValue Property="Label" String="Options"/>
                         </Record>
@@ -517,22 +596,6 @@
             <Annotations Target="SurveyService.Options/option_no">
                 <Annotation Term="Common.Label" String="Option No"/>
             </Annotations>
-            <Annotations Target="SurveyService.Options/question_ID">
-                <Annotation Term="Common.ValueList">
-                    <Record Type="Common.ValueListType">
-                        <PropertyValue Property="Label" String="Questions"/>
-                        <PropertyValue Property="CollectionPath" String="Questions"/>
-                        <PropertyValue Property="Parameters">
-                            <Collection>
-                                <Record Type="Common.ValueListParameterInOut">
-                                    <PropertyValue Property="LocalDataProperty" PropertyPath="question_ID"/>
-                                    <PropertyValue Property="ValueListProperty" String="ID"/>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-            </Annotations>
             <Annotations Target="SurveyService.Options/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -572,27 +635,200 @@
             <Annotations Target="SurveyService.Answers/answer">
                 <Annotation Term="Common.Label" String="Answer"/>
             </Annotations>
-            <Annotations Target="SurveyService.Answers/question_ID">
-                <Annotation Term="Common.ValueList">
-                    <Record Type="Common.ValueListType">
-                        <PropertyValue Property="Label" String="Questions"/>
-                        <PropertyValue Property="CollectionPath" String="Questions"/>
-                        <PropertyValue Property="Parameters">
+            <Annotations Target="SurveyService.Responses">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Survey Form"/>
+                        <PropertyValue Property="TypeNamePlural" String="Recommender Forms"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Label" String="Status"/>
+                                <PropertyValue Property="Value" Path="surveyFormInstance/filled_status/name"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Label" String="Survey Form"/>
+                                <PropertyValue Property="Value" Path="surveyFormInstance/ID"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>surveyFormInstance/region/region_name</PropertyPath>
+                        <PropertyPath>surveyFormInstance/customer/customer_id</PropertyPath>
+                        <PropertyPath>surveyFormInstance/customer/customer_name</PropertyPath>
+                        <PropertyPath>surveyFormInstance/init_by</PropertyPath>
+                        <PropertyPath>surveyFormInstance/init_name</PropertyPath>
+                        <PropertyPath>surveyFormInstance/customer_email</PropertyPath>
+                        <PropertyPath>surveyFormInstance/surveyForm/survey_form_name</PropertyPath>
+                        <PropertyPath>surveyFormInstance/filled_status_code</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance_ID"/>
+                            <PropertyValue Property="Label" String="Form ID"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/region/region_name"/>
+                            <PropertyValue Property="Label" String="Region"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/customer/customer_id"/>
+                            <PropertyValue Property="Label" String="Customer No"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/customer/customer_name"/>
+                            <PropertyValue Property="Label" String="Customer Name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/customer_email"/>
+                            <PropertyValue Property="Label" String="Customer Email"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/init_by"/>
+                            <PropertyValue Property="Label" String="Initiate By"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/init_name"/>
+                            <PropertyValue Property="Label" String="Initiator Name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/filled_status/name"/>
+                            <PropertyValue Property="Label" String="Status"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/expiry_date"/>
+                            <PropertyValue Property="Label" String="Expiry Date"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/reminder_interval"/>
+                            <PropertyValue Property="Label" String="Reminder(In Days)"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm/survey_form_name"/>
+                            <PropertyValue Property="Label" String="Form Template"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm/survey_form_version"/>
+                            <PropertyValue Property="Label" String="Version"/>
+                        </Record>
+                        <Record Type="UI.DataFieldWithUrl">
+                            <PropertyValue Property="Label" String="Response"/>
+                            <PropertyValue Property="Value" Path="ID"/>
+                            <PropertyValue Property="Url">
+                                <Apply Function="odata.concat">
+                                    <String>https://survey-form-customer-persona-insightful-wombat-gb.cfapps.ap10.hana.ondemand.com/?id=</String>
+                                    <Path>ID</Path>
+                                </Apply>
+                            </PropertyValue>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="General Details"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#General"/>
+                            <PropertyValue Property="ID" String="general"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Form Details"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Form"/>
+                            <PropertyValue Property="ID" String="form"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Additional Details"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Addition"/>
+                            <PropertyValue Property="ID" String="addition"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="General">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
                             <Collection>
-                                <Record Type="Common.ValueListParameterInOut">
-                                    <PropertyValue Property="LocalDataProperty" PropertyPath="question_ID"/>
-                                    <PropertyValue Property="ValueListProperty" String="ID"/>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/init_by"/>
+                                    <PropertyValue Property="Label" String="Initiated By"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/init_name"/>
+                                    <PropertyValue Property="Label" String="Initiator Name"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="createdAt"/>
+                                    <PropertyValue Property="Label" String="Initiated At"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="modifiedAt"/>
+                                    <PropertyValue Property="Label" String="Last Updated"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
                 </Annotation>
-            </Annotations>
-            <Annotations Target="SurveyService.Responses">
-                <Annotation Term="UI.DeleteHidden" Bool="true"/>
-            </Annotations>
-            <Annotations Target="SurveyService.EntityContainer/Responses">
-                <Annotation Term="UI.DeleteHidden" Bool="true"/>
+                <Annotation Term="UI.FieldGroup" Qualifier="Form">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/region/region_name"/>
+                                    <PropertyValue Property="Label" String="Region"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/customer/customer_id"/>
+                                    <PropertyValue Property="Label" String="Customer No"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/customer/customer_name"/>
+                                    <PropertyValue Property="Label" String="Customer Name"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/customer_email"/>
+                                    <PropertyValue Property="Label" String="Customer Email"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/expiry_date"/>
+                                    <PropertyValue Property="Label" String="Expiry Date"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/reminder_interval"/>
+                                    <PropertyValue Property="Label" String="Reminder(In Days)"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Addition">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm/survey_form_name"/>
+                                    <PropertyValue Property="Label" String="Form Template"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm/survey_form_version"/>
+                                    <PropertyValue Property="Label" String="Version"/>
+                                </Record>
+                                <Record Type="UI.DataFieldWithUrl">
+                                    <PropertyValue Property="Label" String="Response"/>
+                                    <PropertyValue Property="Value" String="View Survey Form"/>
+                                    <PropertyValue Property="Url">
+                                        <Apply Function="odata.concat">
+                                            <String>https://survey-form-customer-persona-insightful-wombat-gb.cfapps.ap10.hana.ondemand.com/?id=</String>
+                                            <Path>ID</Path>
+                                        </Apply>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="SurveyService.Responses/createdAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
@@ -622,7 +858,7 @@
                 <Annotation Term="UI.HeaderInfo">
                     <Record Type="UI.HeaderInfoType">
                         <PropertyValue Property="TypeName" String="SurveyForm"/>
-                        <PropertyValue Property="TypeNamePlural" String="SurveyForms"/>
+                        <PropertyValue Property="TypeNamePlural" String="Recommender Forms"/>
                         <PropertyValue Property="Title">
                             <Record Type="UI.DataField">
                                 <PropertyValue Property="Value" Path="survey_form_name"/>
@@ -633,7 +869,7 @@
                 <Annotation Term="UI.SelectionFields">
                     <Collection>
                         <PropertyPath>survey_form_name</PropertyPath>
-                        <PropertyPath>activation_status</PropertyPath>
+                        <PropertyPath>activation_status_code</PropertyPath>
                     </Collection>
                 </Annotation>
                 <Annotation Term="UI.LineItem">
@@ -647,7 +883,7 @@
                             <PropertyValue Property="Label" String="Version"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="activation_status"/>
+                            <PropertyValue Property="Value" Path="activation_status/name"/>
                             <PropertyValue Property="Label" String="Status"/>
                         </Record>
                     </Collection>
@@ -679,7 +915,7 @@
                                     <PropertyValue Property="Label" String="Version"/>
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="activation_status"/>
+                                    <PropertyValue Property="Value" Path="activation_status_code"/>
                                     <PropertyValue Property="Label" String="Status"/>
                                 </Record>
                             </Collection>
@@ -732,6 +968,26 @@
             <Annotations Target="SurveyService.SurveyForms/activation_status">
                 <Annotation Term="Common.Label" String="Status"/>
             </Annotations>
+            <Annotations Target="SurveyService.SurveyForms/activation_status_code">
+                <Annotation Term="Common.Label" String="Status"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Status"/>
+                        <PropertyValue Property="CollectionPath" String="ActivationStatusType"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="activation_status_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
             <Annotations Target="SurveyService.SurveyForms/IsActiveEntity">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
@@ -743,6 +999,12 @@
             </Annotations>
             <Annotations Target="SurveyService.SurveyForms/DraftAdministrativeData">
                 <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="SurveyService.SurveyFormInstances">
+                <Annotation Term="Common.Label" String="Survey Forms"/>
+            </Annotations>
+            <Annotations Target="SurveyService.SurveyFormInstances/ID">
+                <Annotation Term="Common.Label" String="Survey Form"/>
             </Annotations>
             <Annotations Target="SurveyService.SurveyFormInstances/createdAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
@@ -779,6 +1041,35 @@
             </Annotations>
             <Annotations Target="SurveyService.SurveyFormInstances/filled_status">
                 <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="SurveyService.SurveyFormInstances/filled_status_code">
+                <Annotation Term="Common.Text" Path="filled_status/name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Status"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Status"/>
+                        <PropertyValue Property="CollectionPath" String="FilledStatusType"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="filled_status_code"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SurveyService.SurveyFormInstances/init_by">
+                <Annotation Term="Common.Label" String="Initiated By"/>
+            </Annotations>
+            <Annotations Target="SurveyService.SurveyFormInstances/init_name">
+                <Annotation Term="Common.Label" String="Initiator Name"/>
             </Annotations>
             <Annotations Target="SurveyService.SurveyFormInstances/region_ID">
                 <Annotation Term="Common.ValueList">
@@ -901,6 +1192,12 @@
                     </Record>
                 </Annotation>
             </Annotations>
+            <Annotations Target="SurveyService.triggerEmail(Edm.Guid,Edm.String,Edm.String)/Email">
+                <Annotation Term="Common.Label" String="Customer Email"/>
+            </Annotations>
+            <Annotations Target="SurveyService.triggerEmail(Edm.Guid,Edm.String,Edm.String)/Customer">
+                <Annotation Term="Common.Label" String="Customer"/>
+            </Annotations>
             <Annotations Target="SurveyService.QuestionType">
                 <Annotation Term="UI.Identification">
                     <Collection>
@@ -921,6 +1218,36 @@
                     <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
                 </Annotation>
                 <Annotation Term="Common.Label" String="Question Type"/>
+            </Annotations>
+            <Annotations Target="SurveyService.ActivationStatusType">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SurveyService.ActivationStatusType/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="SurveyService.ActivationStatusType/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="SurveyService.FilledStatusType">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SurveyService.FilledStatusType/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="SurveyService.FilledStatusType/descr">
+                <Annotation Term="Common.Label" String="Description"/>
             </Annotations>
             <Annotations Target="SurveyService.DraftAdministrativeData">
                 <Annotation Term="Common.Label" String="Draft Administrative Data"/>
@@ -956,6 +1283,18 @@
                 <Annotation Term="Common.Label" String="Name"/>
             </Annotations>
             <Annotations Target="SurveyService.QuestionType_texts/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="SurveyService.ActivationStatusType_texts/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="SurveyService.ActivationStatusType_texts/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="SurveyService.FilledStatusType_texts/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="SurveyService.FilledStatusType_texts/descr">
                 <Annotation Term="Common.Label" String="Description"/>
             </Annotations>
         </Schema>

@@ -3,7 +3,7 @@ using SurveyService as service from './pntsurveyapp-service';
 annotate service.Responses @(UI : {
     HeaderInfo           : {
         TypeName       : 'Survey Form',
-        TypeNamePlural : 'Survey Forms',
+        TypeNamePlural : 'Recommender Forms',
 
         Title          : {
             $Type : 'UI.DataField',
@@ -29,7 +29,7 @@ annotate service.Responses @(UI : {
     LineItem             : [
         {
             Value : surveyFormInstance_ID,
-            Label : 'Survey Form'
+            Label : 'Form ID'
         },
         {
             Value : surveyFormInstance.region.region_name,

@@ -14,10 +14,10 @@
                 "uri": "/pntsurvey/",
                 "type": "OData",
                 "settings": {
+                    "odataVersion": "4.0",
                     "annotations": [
                         "annotation"
                     ],
-                    "odataVersion": "4.0",
                     "localUri": "localService/metadata.xml"
                 }
             },
@@ -42,7 +42,7 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "form",
+                    "semanticObject": "formsadminui",
                     "action": "display",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
