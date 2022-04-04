@@ -8,9 +8,9 @@
 |**Floorplan Used**<br>List Report Object Page V4|
 |**Service Type**<br>OData Url|
 |**Service URL**<br>https://sap-cp-apj-customersuccessteam-cspindev-btpapps-pntsurv5507ee5d.cfapps.ap10.hana.ondemand.com/pntsurvey/
-|**Module Name**<br>pntceesurveyapp|
+|**Module Name**<br>formsceeui|
 |**Application Title**<br>P&amp;T CEE Survey App|
-|**Namespace**<br>pntceesurveyapp|
+|**Namespace**<br>formsceeui|
 |**UI5 Theme**<br>sap_fiori_3|
 |**UI5 Version**<br>Latest|
 |**Enable Code Assist Libraries**<br>False|
@@ -18,7 +18,7 @@
 |**Enable Telemetry**<br>True|
 |**Main Entity**<br>SurveyFormInstances|
 
-## pntceesurveyapp
+## formsceeui
 
 P&amp;T CEE Survey App
 

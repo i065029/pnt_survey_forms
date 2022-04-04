@@ -1,6 +1,6 @@
 sap.ui.define([
-    "pntceesurveyapp/pntceesurveyapp/service/surveyform",
-    "pntceesurveyapp/pntceesurveyapp/lib/ServiceUtil",
+    "formsceeui/formsceeui/service/surveyform",
+    "formsceeui/formsceeui/lib/ServiceUtil",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageToast",
 ], function (surveyform, ServiceUtil, JSONModel, MessageToast) {
@@ -12,7 +12,7 @@ sap.ui.define([
                 // Logic to Manage & Create Projects
                 if (!this._oDialog) {
                     sap.ui.core.Fragment.load({
-                        name: "pntceesurveyapp.pntceesurveyapp.fragment.SurveyFormInstCreate",
+                        name: "formsceeui.formsceeui.fragment.SurveyFormInstCreate",
                         type: "XML",
                         controller: this
                     }).then(function (_oDialog) {
@@ -165,7 +165,7 @@ sap.ui.define([
                                     }).catch(ServiceUtil.errorHandler);
                                 }
                                 // Refresh Table Model
-                                sap.ui.getCore().byId("pntceesurveyapp.pntceesurveyapp::SurveyFormInstancesList--fe::table::Responses::LineItem").getModel().refresh()
+                                sap.ui.getCore().byId("formsceeui.formsceeui::SurveyFormInstancesList--fe::table::Responses::LineItem").getModel().refresh()
                             }).catch(ServiceUtil.errorHandler);
                         }).catch(ServiceUtil.errorHandler);
 

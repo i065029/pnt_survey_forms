@@ -9,7 +9,7 @@ sap.ui.define(['sap/fe/test/ObjectPage'], function(ObjectPage) {
 
     return new ObjectPage(
         {
-            appId: 'pntceesurveyapp.pntceesurveyapp', // MANDATORY: Compare sap.app.id in manifest.json
+            appId: 'formsceeui.formsceeui', // MANDATORY: Compare sap.app.id in manifest.json
             componentId: 'SurveyFormInstancesObjectPage', // MANDATORY: Compare sap.ui5.routing.targets.id in manifest.json
             entitySet: 'SurveyFormInstances' // MANDATORY: Compare entityset in manifest.json
         },

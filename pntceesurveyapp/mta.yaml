@@ -1,53 +1,53 @@
 _schema-version: "3.2"
-ID: pntceesurveyapp-pntceesurveyapp
+ID: formsceeui
 description: P&T CEE Survey App
 version: 0.0.1
 modules:
-- name: pntceesurveyapp-pntceesurveyapp-dest-content
+- name: formsceeui-dest-content
   type: com.sap.application.content
   requires:
-  - name: pntceesurveyapp-pntceesurveyapp-dest-srv
+  - name: formsceeui-dest-srv
     parameters:
       content-target: true
-  - name: pntceesurveyapp-pntceesurveyapp-repo-host
+  - name: formsceeui-repo-host
     parameters:
       service-key:
-        name: pntceesurveyapp-pntceesurveyapp-repo-host-key
-  - name: pntceesurveyapp-pntceesurveyapp-uaa
+        name: formsceeui-repo-host-key
+  - name: formsceeui-uaa
     parameters:
       service-key:
-        name: pntceesurveyapp-pntceesurveyapp-uaa-key
+        name: formsceeui-uaa-key
   parameters:
     content:
       instance:
         destinations:
-        - Name: pntceesurveyapp-pntceesurveyapp_repo_host
-          ServiceInstanceName: pntceesurveyapp-pntceesurveyapp-html5-srv
-          ServiceKeyName: pntceesurveyapp-pntceesurveyapp-repo-host-key
-          sap.cloud.service: pntceesurveyapp-pntceesurveyapp
+        - Name: formsceeui_repo_host
+          ServiceInstanceName: formsceeui-html5-srv
+          ServiceKeyName: formsceeui-repo-host-key
+          sap.cloud.service: formsceeui
         - Authentication: OAuth2UserTokenExchange
-          Name: pntceesurveyapp-pntceesurveyapp_uaa
-          ServiceInstanceName: pntceesurveyapp-pntceesurveyapp-xsuaa-srv
-          ServiceKeyName: pntceesurveyapp-pntceesurveyapp-uaa-key
-          sap.cloud.service: pntceesurveyapp-pntceesurveyapp
+          Name: formsceeui_uaa
+          ServiceInstanceName: formsceeui-xsuaa-srv
+          ServiceKeyName: formsceeui-uaa-key
+          sap.cloud.service: formsceeui
         existing_destinations_policy: ignore
   build-parameters:
     no-source: true
-- name: pntceesurveyapp-pntceesurveyapp-app-content
+- name: formsceeui-app-content
   type: com.sap.application.content
   path: .
   requires:
-  - name: pntceesurveyapp-pntceesurveyapp-repo-host
+  - name: formsceeui-repo-host
     parameters:
       content-target: true
   build-parameters:
     build-result: resources
     requires:
     - artifacts:
-      - pntceesurveyapppntceesurveyapp.zip
-      name: pntceesurveyapppntceesurveyapp
+      - formsceeui.zip
+      name: formsceeui
       target-path: resources/
-- name: pntceesurveyapppntceesurveyapp
+- name: formsceeui
   type: html5
   path: .
   build-parameters:
@@ -58,7 +58,7 @@ modules:
     - npm run build:cf
     supported-platforms: []
 resources:
-- name: pntceesurveyapp-pntceesurveyapp-dest-srv
+- name: formsceeui-dest-srv
   type: org.cloudfoundry.managed-service
   parameters:
     config:
@@ -74,20 +74,20 @@ resources:
           existing_destinations_policy: update
       version: 1.0.0
     service: destination
-    service-name: pntceesurveyapp-pntceesurveyapp-dest-srv
+    service-name: formsceeui-dest-srv
     service-plan: lite
-- name: pntceesurveyapp-pntceesurveyapp-uaa
+- name: formsceeui-uaa
   type: org.cloudfoundry.managed-service
   parameters:
     path: ./xs-security.json
     service: xsuaa
-    service-name: pntceesurveyapp-pntceesurveyapp-xsuaa-srv
+    service-name: formsceeui-xsuaa-srv
     service-plan: application
-- name: pntceesurveyapp-pntceesurveyapp-repo-host
+- name: formsceeui-repo-host
   type: org.cloudfoundry.managed-service
   parameters:
     service: html5-apps-repo
-    service-name: pntceesurveyapp-pntceesurveyapp-html5-srv
+    service-name: formsceeui-html5-srv
     service-plan: app-host
 parameters:
   deploy_mode: html5-repo

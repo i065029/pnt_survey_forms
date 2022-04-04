@@ -1,6 +1,6 @@
 specVersion: '2.4'
 metadata:
-  name: 'pntceesurveyapp'
+  name: 'formsceeui'
 type: application
 server:
   customMiddleware:
@@ -35,5 +35,5 @@ server:
   - name: fiori-tools-preview
     afterMiddleware: fiori-tools-appreload
     configuration:
-      component: pntceesurveyapp.pntceesurveyapp
+      component: formsceeui.formsceeui
       ui5Theme: sap_fiori_3

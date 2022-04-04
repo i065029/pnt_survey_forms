@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "pntceesurveyapp.pntceesurveyapp",
+        "id": "formsceeui.formsceeui",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -118,7 +118,7 @@
                                 "header": {
                                     "actions": {
                                         "manageSurveyFormInst": {
-                                            "press": "pntceesurveyapp.pntceesurveyapp.controller.extSurveyFormInst.manageSurveyFormInst",
+                                            "press": "formsceeui.formsceeui.controller.extSurveyFormInst.manageSurveyFormInst",
                                             "visible": true,
                                             "enabled": true,
                                             "text": "Trigger New"
@@ -162,6 +162,6 @@
     },
     "sap.cloud": {
         "public": true,
-        "service": "pntceesurveyapp-pntceesurveyapp"
+        "service": "formsceeui"
     }
 }
