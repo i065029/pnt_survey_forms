@@ -28,7 +28,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Deploy
 
-Copy manifest.yml file from Root directory to dist/customer-persona directory
-Run `cf api <cf_endpoint>`
-Run `cf login` then select CF Org and Space
+Copy manifest.yml file from Root directory to dist/customer-persona directory.
+Run `cf api <cf_endpoint>`.
+Run `cf login` then select CF Org and Space.
 Run `cf push <appname>` eg. cf push survey-form-customer-persona
