@@ -1,0 +1,135 @@
+.parentContainer {
+    padding: 1%;
+}
+
+.sap-logo {
+    width: 6%;
+    height: 55%;
+}
+
+.parent-container-image {
+    background-image: url('../../assets/images/main_page.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.header-toolbar {
+    background-color: #042d57;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.welcome-msg {
+    font-family: "Gill Sans", sans-serif;
+    color: white;
+}
+
+.user-name {
+    padding-left: 1%;
+    font-family: "Gill Sans", sans-serif;
+    color: white;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.logo {
+    width: 5%;
+    height: 2%;
+}
+
+.parentHeading {
+    padding-left: 3%;
+    font-size: 200%;
+}
+
+.childContainer {
+    padding-top: 0.5%;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+    padding-bottom: 0.5%;
+}
+
+.example-radio-group {
+    display: flex;
+    flex-direction: row;
+    margin: 1px 0;
+    align-items: flex-start;
+}
+
+.example-radio-button {
+    margin: 1px;
+    font-family: "Gill Sans", sans-serif;
+    color: black;
+    font-size: larger;
+    padding-right: 1%;
+}
+
+.checkbox-texts {
+    font-family: "Gill Sans", sans-serif;
+    color: black;
+    font-size: larger;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.final-button {
+    width: 25%;
+    font-size: larger;
+    display: inline-block;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.mat-checkbox-layout {
+    white-space: normal !important;
+}
+
+.mat-checkbox-inner-container {
+    margin-top: 4px;
+}
+
+.question {
+    font-family: "Gill Sans", sans-serif;
+    color: black;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.expiry-text-container {
+    padding: 10%;
+}
+
+.expiry-text {
+    text-align: center;
+    font-family: "Gill Sans", sans-serif;
+    color: black;
+}
+
+.comment-label {
+    font-family: "Gill Sans", sans-serif;
+    color: black;
+    font-size: large;
+}
+
+.loading-spinner {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
