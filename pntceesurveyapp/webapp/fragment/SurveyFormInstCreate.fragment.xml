@@ -32,6 +32,12 @@
 				
 				<Label text = "Reminder (in Days)"/>
 				<Input  value = "{path:'surveyforminstances>/reminder_interval'}" type="Number" liveChange="onChangeReminder"/>
+
+                <Label text = "Initiated By"/>
+                <Text text="{path:'surveyforminstances>/init_by'}"/>
+
+                <Label text = "Initiator Name"/>
+                <Text text="{path:'surveyforminstances>/init_name'}"/>
 				
 			</form:SimpleForm>
 		</content>

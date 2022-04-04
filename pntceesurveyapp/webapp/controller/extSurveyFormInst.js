@@ -23,6 +23,14 @@ sap.ui.define([
                         let tomorrow = new Date();
                         tomorrow.setDate(today.getDate() + 1);
                         expiryDateControl.setMinDate(tomorrow);
+                        // Get Logged in User
+                        surveyform.getUser().then(function (oData) {
+                            var selControluser = that._oDialog.getContent()[0].getContent()[13];
+                            var selControlusername = that._oDialog.getContent()[0].getContent()[15];
+                            selControluser. setText(oData.email);
+                            var userName = oData.firstname + " " + oData.lastname;
+                            selControlusername.setText(userName);
+                        }).catch(ServiceUtil.errorHandler);
                         // Update Region Value List
                         surveyform.getRegions().then(function (oData) {
                             var selControlRegion = that._oDialog.getContent()[0].getContent()[1];
@@ -55,7 +63,7 @@ sap.ui.define([
                     }.bind(this));
                 } else {
                     if (bisOpen) {
-                        this._oDialog.setModel(new JSONModel(), "project");
+                        this._oDialog.setModel(new JSONModel(), "surveyforminstances");
                         this._oDialog.open();
                     } else {
                         this._oDialog.close();
@@ -131,10 +139,12 @@ sap.ui.define([
                         "customer_email": customerEmail[ce],
                         "expiry_date": expiryDate,
                         "reminder_interval": reminder_interval,
-                        "filled_status_code": "0",
+                        "filled_status_code": '0',
                         "region_ID": this._oDialog.getModel("surveyforminstances").getData()['region'],
                         "customer_ID": this._oDialog.getModel("surveyforminstances").getData()['customer'],
-                        "surveyForm_ID": this._oDialog.getModel("surveyforminstances").getData()['surveyForm']
+                        "surveyForm_ID": this._oDialog.getModel("surveyforminstances").getData()['surveyForm'],
+                        "init_by": this._oDialog.getModel("surveyforminstances").getData()['init_by'],
+                        "init_name": this._oDialog.getModel("surveyforminstances").getData()['init_name']
                     };
 
                     // Create Survey Form Instance for customer contact email

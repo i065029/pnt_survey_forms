@@ -2,6 +2,21 @@ sap.ui.define([], function () {
     "use strict";
 
     var surveyform = {
+
+        getUser: function (oData) {
+            return new Promise(function (oResolve, oReject) {
+                $.ajax({
+                    type: "GET",
+                    url: "./user-api/currentUser",
+                    data: JSON.stringify(oData),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: oResolve,
+                    error: oReject
+                });
+            });
+        },
+
         createsurveyforminstance: function (oData) {
             return new Promise(function (oResolve, oReject) {
                 $.ajax({

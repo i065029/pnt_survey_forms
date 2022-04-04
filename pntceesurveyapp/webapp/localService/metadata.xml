@@ -190,6 +190,8 @@
                     <ReferentialConstraint Property="filled_status_code" ReferencedProperty="code"/>
                 </NavigationProperty>
                 <Property Name="filled_status_code" Type="Edm.String" MaxLength="20"/>
+                <Property Name="init_by" Type="Edm.String"/>
+                <Property Name="init_name" Type="Edm.String"/>
                 <NavigationProperty Name="region" Type="SurveyService.Regions">
                     <ReferentialConstraint Property="region_ID" ReferencedProperty="ID"/>
                 </NavigationProperty>
@@ -653,7 +655,8 @@
                         <PropertyPath>surveyFormInstance/region/region_name</PropertyPath>
                         <PropertyPath>surveyFormInstance/customer/customer_id</PropertyPath>
                         <PropertyPath>surveyFormInstance/customer/customer_name</PropertyPath>
-                        <PropertyPath>surveyFormInstance/createdBy</PropertyPath>
+                        <PropertyPath>surveyFormInstance/init_by</PropertyPath>
+                        <PropertyPath>surveyFormInstance/init_name</PropertyPath>
                         <PropertyPath>surveyFormInstance/customer_email</PropertyPath>
                         <PropertyPath>surveyFormInstance/surveyForm/survey_form_name</PropertyPath>
                         <PropertyPath>surveyFormInstance/filled_status_code</PropertyPath>
@@ -682,8 +685,12 @@
                             <PropertyValue Property="Label" String="Customer Email"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="surveyFormInstance/createdBy"/>
+                            <PropertyValue Property="Value" Path="surveyFormInstance/init_by"/>
                             <PropertyValue Property="Label" String="Initiate By"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/init_name"/>
+                            <PropertyValue Property="Label" String="Initiator Name"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="surveyFormInstance/filled_status/name"/>
@@ -741,20 +748,20 @@
                         <PropertyValue Property="Data">
                             <Collection>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/createdBy"/>
-                                    <PropertyValue Property="Label" String="Created By"/>
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/init_by"/>
+                                    <PropertyValue Property="Label" String="Initiated By"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="surveyFormInstance/init_name"/>
+                                    <PropertyValue Property="Label" String="Initiator Name"/>
                                 </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="createdAt"/>
-                                    <PropertyValue Property="Label" String="Created At"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="surveyFormInstance/modifiedBy"/>
-                                    <PropertyValue Property="Label" String="Modified By"/>
+                                    <PropertyValue Property="Label" String="Initiated At"/>
                                 </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="modifiedAt"/>
-                                    <PropertyValue Property="Label" String="Modified At"/>
+                                    <PropertyValue Property="Label" String="Last Updated"/>
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -1053,6 +1060,12 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
+            </Annotations>
+            <Annotations Target="SurveyService.SurveyFormInstances/init_by">
+                <Annotation Term="Common.Label" String="Initiated By"/>
+            </Annotations>
+            <Annotations Target="SurveyService.SurveyFormInstances/init_name">
+                <Annotation Term="Common.Label" String="Initiator Name"/>
             </Annotations>
             <Annotations Target="SurveyService.SurveyFormInstances/region_ID">
                 <Annotation Term="Common.ValueList">

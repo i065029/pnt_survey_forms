@@ -48,6 +48,8 @@ entity SurveyFormInstance : cuid, managed {
     @title : 'Expiry Date' expiry_date       : Date;
     @title : 'Reminder' reminder_interval    : Integer;
     @title : 'Status' filled_status          : Association to FilledStatusType;
+    @title : 'Initiated By' init_by          : String;
+    @title : 'Initiator Name' init_name      : String;
     region                                   : Association to Region;
     customer                                 : Association to Customer;
     surveyForm                               : Association to SurveyForm;
