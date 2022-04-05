@@ -5,9 +5,10 @@ sap.ui.define([], function () {
 
         getUser: function (oData) {
             return new Promise(function (oResolve, oReject) {
+                var sPath = "./user-api/currentUser";
                 $.ajax({
                     type: "GET",
-                    url: "./user-api/currentUser",
+                    url: sPath,
                     data: JSON.stringify(oData),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -19,9 +20,10 @@ sap.ui.define([], function () {
 
         createsurveyforminstance: function (oData) {
             return new Promise(function (oResolve, oReject) {
+                var sPath = "./pntsurvey/SurveyFormInstances";
                 $.ajax({
                     type: "POST",
-                    url: "./pntsurvey/SurveyFormInstances",
+                    url: sPath,
                     data: JSON.stringify(oData),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -33,9 +35,10 @@ sap.ui.define([], function () {
 
         createresponse: function (oData) {
             return new Promise(function (oResolve, oReject) {
+                var sPath = "./pntsurvey/Responses";
                 $.ajax({
                     type: "POST",
-                    url: "./pntsurvey/Responses",
+                    url: sPath,
                     data: JSON.stringify(oData),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -47,9 +50,10 @@ sap.ui.define([], function () {
 
         createanswer: function (oData) {
             return new Promise(function (oResolve, oReject) {
+                var sPath = "./pntsurvey/Answers";
                 $.ajax({
                     type: "POST",
-                    url: "./pntsurvey/Answers",
+                    url: sPath,
                     data: JSON.stringify(oData),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -61,9 +65,10 @@ sap.ui.define([], function () {
 
         getRegions: function (oData) {
             return new Promise(function (oResolve, oReject) {
+                var sPath = "./pntsurvey/Regions";
                 $.ajax({
                     type: "GET",
-                    url: "./pntsurvey/Regions",
+                    url: sPath,
                     data: JSON.stringify(oData),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -75,9 +80,10 @@ sap.ui.define([], function () {
 
         getCustomers: function (oData) {
             return new Promise(function (oResolve, oReject) {
+                var sPath = "./pntsurvey/Customers";
                 $.ajax({
                     type: "GET",
-                    url: "./pntsurvey/Customers",
+                    url: sPath,
                     data: JSON.stringify(oData),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -89,9 +95,10 @@ sap.ui.define([], function () {
 
         getCustomerBasedOnReason: function (region_id, oData) {
             return new Promise(function (oResolve, oReject) {
+                var sPath = "./pntsurvey/Regions/" + region_id + "/customers";
                 $.ajax({
                     type: "GET",
-                    url: "./pntsurvey/Regions/" + region_id + "/customers",
+                    url: sPath,
                     data: JSON.stringify(oData),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -103,9 +110,10 @@ sap.ui.define([], function () {
 
         getSurveyForms: function (oData) {
             return new Promise(function (oResolve, oReject) {
+                var sPath = "./pntsurvey/SurveyForms?filter=activation_status_code eq '0'";
                 $.ajax({
                     type: "GET",
-                    url: "./pntsurvey/SurveyForms?filter=activation_status_code eq '0'",
+                    url: sPath,
                     data: JSON.stringify(oData),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
@@ -117,9 +125,10 @@ sap.ui.define([], function () {
 
         getSurveyFormQuestionsBasedOnResponse: function (response_id, oData) {
             return new Promise(function (oResolve, oReject) {
+                var sPath = "./pntsurvey/Responses/" + response_id + "?$expand=surveyFormInstance($expand=surveyForm($expand=Questions))";
                 $.ajax({
                     type: "GET",
-                    url: "./pntsurvey/Responses/" + response_id + "?$expand=surveyFormInstance($expand=surveyForm($expand=Questions))",
+                    url: sPath,
                     data: JSON.stringify(oData),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
