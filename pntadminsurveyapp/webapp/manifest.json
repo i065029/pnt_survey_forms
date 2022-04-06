@@ -142,7 +142,8 @@
                                         "route": "SurveyFormsObjectPage"
                                     }
                                 }
-                            }
+                            },
+                            "initialLoad": "Enabled"
                         }
                     },
                     "controlAggregation": "beginColumnPages",
@@ -162,7 +163,8 @@
                                         "route": "QuestionsObjectPage"
                                     }
                                 }
-                            }
+                            },
+                            "initialLoad": "Enabled"
                         }
                     },
                     "controlAggregation": "midColumnPages",
