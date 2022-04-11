@@ -68,6 +68,14 @@ annotate service.Responses @(UI : {
             Label : 'Reminder(In Days)'
         },
         {
+            Value : surveyFormInstance.createdAt,
+            Label : 'Initiated On'
+        },
+        {
+            Value : surveyFormInstance.modifiedAt,
+            Label : 'Last Updated'
+        },
+        {
             Value : surveyFormInstance.surveyForm.survey_form_name,
             Label : 'Form Template'
         },
@@ -122,7 +130,7 @@ annotate service.Responses @(UI : {
         },
         {
             Value : createdAt,
-            Label : 'Initiated At'
+            Label : 'Initiated On'
         },
         {
             Value : modifiedAt,

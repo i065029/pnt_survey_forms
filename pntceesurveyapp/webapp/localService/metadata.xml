@@ -70,9 +70,7 @@
                     <PropertyRef Name="IsActiveEntity"/>
                 </Key>
                 <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
                 <Property Name="question_no" Type="Edm.Int32"/>
                 <Property Name="question_label" Type="Edm.String"/>
@@ -100,9 +98,7 @@
                 </Key>
                 <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
                 <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="option_label" Type="Edm.String"/>
                 <Property Name="option_no" Type="Edm.Int32"/>
                 <NavigationProperty Name="question" Type="SurveyService.Questions" Partner="options">
@@ -121,9 +117,7 @@
                 </Key>
                 <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
                 <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="answer" Type="Edm.String"/>
                 <NavigationProperty Name="response" Type="SurveyService.Responses" Partner="answers">
                     <ReferentialConstraint Property="response_ID" ReferencedProperty="ID"/>
@@ -155,9 +149,7 @@
                     <PropertyRef Name="IsActiveEntity"/>
                 </Key>
                 <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
                 <Property Name="survey_form_name" Type="Edm.String"/>
                 <Property Name="survey_form_version" Type="Edm.Int32"/>
@@ -180,9 +172,7 @@
                 </Key>
                 <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
                 <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="customer_email" Type="Edm.String"/>
                 <Property Name="expiry_date" Type="Edm.Date"/>
                 <Property Name="reminder_interval" Type="Edm.Int32"/>
@@ -211,9 +201,7 @@
                 </Key>
                 <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
                 <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="region_name" Type="Edm.String"/>
                 <NavigationProperty Name="customers" Type="Collection(SurveyService.Customers)" Partner="region"/>
             </EntityType>
@@ -223,9 +211,7 @@
                 </Key>
                 <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
                 <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
-                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
                 <Property Name="customer_id" Type="Edm.String"/>
                 <Property Name="customer_name" Type="Edm.String"/>
                 <NavigationProperty Name="region" Type="SurveyService.Regions" Partner="customers">
@@ -344,8 +330,10 @@
             </Action>
             <Function Name="triggerEmail" IsBound="false" IsComposable="false">
                 <Parameter Name="ResponseId" Type="Edm.Guid"/>
-                <Parameter Name="Email" Type="Edm.String"/>
+                <Parameter Name="CustomerEmail" Type="Edm.String"/>
                 <Parameter Name="Customer" Type="Edm.String"/>
+                <Parameter Name="CEE" Type="Edm.String"/>
+                <Parameter Name="CEEEmail" Type="Edm.String"/>
                 <ReturnType Type="Edm.String"/>
             </Function>
             <Annotations Target="SurveyService.Questions">
@@ -441,23 +429,10 @@
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Created On"/>
             </Annotations>
-            <Annotations Target="SurveyService.Questions/createdBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Immutable" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Created By"/>
-            </Annotations>
             <Annotations Target="SurveyService.Questions/modifiedAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Changed On"/>
-            </Annotations>
-            <Annotations Target="SurveyService.Questions/modifiedBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Changed By"/>
             </Annotations>
             <Annotations Target="SurveyService.Questions/ID">
                 <Annotation Term="Core.Computed" Bool="true"/>
@@ -546,6 +521,10 @@
                 <Annotation Term="UI.LineItem">
                     <Collection>
                         <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="option_no"/>
+                            <PropertyValue Property="Label" String="S No."/>
+                        </Record>
+                        <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="option_label"/>
                             <PropertyValue Property="Label" String="Options"/>
                         </Record>
@@ -568,23 +547,10 @@
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Created On"/>
             </Annotations>
-            <Annotations Target="SurveyService.Options/createdBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Immutable" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Created By"/>
-            </Annotations>
             <Annotations Target="SurveyService.Options/modifiedAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Changed On"/>
-            </Annotations>
-            <Annotations Target="SurveyService.Options/modifiedBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Changed By"/>
             </Annotations>
             <Annotations Target="SurveyService.Options/option_label">
                 <Annotation Term="Common.Label" String="Option"/>
@@ -610,23 +576,10 @@
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Created On"/>
             </Annotations>
-            <Annotations Target="SurveyService.Answers/createdBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Immutable" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Created By"/>
-            </Annotations>
             <Annotations Target="SurveyService.Answers/modifiedAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Changed On"/>
-            </Annotations>
-            <Annotations Target="SurveyService.Answers/modifiedBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Changed By"/>
             </Annotations>
             <Annotations Target="SurveyService.Answers/answer">
                 <Annotation Term="Common.Label" String="Answer"/>
@@ -635,7 +588,7 @@
                 <Annotation Term="UI.HeaderInfo">
                     <Record Type="UI.HeaderInfoType">
                         <PropertyValue Property="TypeName" String="Survey Form"/>
-                        <PropertyValue Property="TypeNamePlural" String="Survey Forms"/>
+                        <PropertyValue Property="TypeNamePlural" String="Recommender Forms"/>
                         <PropertyValue Property="Title">
                             <Record Type="UI.DataField">
                                 <PropertyValue Property="Label" String="Status"/>
@@ -666,7 +619,7 @@
                     <Collection>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="surveyFormInstance_ID"/>
-                            <PropertyValue Property="Label" String="Survey Form"/>
+                            <PropertyValue Property="Label" String="Form ID"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="surveyFormInstance/region/region_name"/>
@@ -703,6 +656,14 @@
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="surveyFormInstance/reminder_interval"/>
                             <PropertyValue Property="Label" String="Reminder(In Days)"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/createdAt"/>
+                            <PropertyValue Property="Label" String="Initiated On"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="surveyFormInstance/modifiedAt"/>
+                            <PropertyValue Property="Label" String="Last Updated"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="surveyFormInstance/surveyForm/survey_form_name"/>
@@ -757,7 +718,7 @@
                                 </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="createdAt"/>
-                                    <PropertyValue Property="Label" String="Initiated At"/>
+                                    <PropertyValue Property="Label" String="Initiated On"/>
                                 </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Value" Path="modifiedAt"/>
@@ -854,7 +815,7 @@
                 <Annotation Term="UI.HeaderInfo">
                     <Record Type="UI.HeaderInfoType">
                         <PropertyValue Property="TypeName" String="SurveyForm"/>
-                        <PropertyValue Property="TypeNamePlural" String="SurveyForms"/>
+                        <PropertyValue Property="TypeNamePlural" String="Recommender Forms"/>
                         <PropertyValue Property="Title">
                             <Record Type="UI.DataField">
                                 <PropertyValue Property="Value" Path="survey_form_name"/>
@@ -934,23 +895,10 @@
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Created On"/>
             </Annotations>
-            <Annotations Target="SurveyService.SurveyForms/createdBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Immutable" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Created By"/>
-            </Annotations>
             <Annotations Target="SurveyService.SurveyForms/modifiedAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Changed On"/>
-            </Annotations>
-            <Annotations Target="SurveyService.SurveyForms/modifiedBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Changed By"/>
             </Annotations>
             <Annotations Target="SurveyService.SurveyForms/ID">
                 <Annotation Term="Core.Computed" Bool="true"/>
@@ -1008,23 +956,10 @@
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Created On"/>
             </Annotations>
-            <Annotations Target="SurveyService.SurveyFormInstances/createdBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Immutable" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Created By"/>
-            </Annotations>
             <Annotations Target="SurveyService.SurveyFormInstances/modifiedAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Changed On"/>
-            </Annotations>
-            <Annotations Target="SurveyService.SurveyFormInstances/modifiedBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Changed By"/>
             </Annotations>
             <Annotations Target="SurveyService.SurveyFormInstances/customer_email">
                 <Annotation Term="Common.Label" String="Customer Email"/>
@@ -1078,6 +1013,9 @@
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="region_ID"/>
                                     <PropertyValue Property="ValueListProperty" String="ID"/>
                                 </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="region_name"/>
+                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -1121,23 +1059,10 @@
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Created On"/>
             </Annotations>
-            <Annotations Target="SurveyService.Regions/createdBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Immutable" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Created By"/>
-            </Annotations>
             <Annotations Target="SurveyService.Regions/modifiedAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Changed On"/>
-            </Annotations>
-            <Annotations Target="SurveyService.Regions/modifiedBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Changed By"/>
             </Annotations>
             <Annotations Target="SurveyService.Regions/region_name">
                 <Annotation Term="Common.Label" String="Region"/>
@@ -1148,23 +1073,10 @@
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Created On"/>
             </Annotations>
-            <Annotations Target="SurveyService.Customers/createdBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Immutable" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Created By"/>
-            </Annotations>
             <Annotations Target="SurveyService.Customers/modifiedAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Computed" Bool="true"/>
                 <Annotation Term="Common.Label" String="Changed On"/>
-            </Annotations>
-            <Annotations Target="SurveyService.Customers/modifiedBy">
-                <Annotation Term="UI.HiddenFilter" Bool="true"/>
-                <Annotation Term="Core.Computed" Bool="true"/>
-                <Annotation Term="Core.Description" String="User's unique ID"/>
-                <Annotation Term="Common.Label" String="Changed By"/>
             </Annotations>
             <Annotations Target="SurveyService.Customers/customer_id">
                 <Annotation Term="Common.Label" String="Customer No"/>
@@ -1183,16 +1095,25 @@
                                     <PropertyValue Property="LocalDataProperty" PropertyPath="region_ID"/>
                                     <PropertyValue Property="ValueListProperty" String="ID"/>
                                 </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="region_name"/>
+                                </Record>
                             </Collection>
                         </PropertyValue>
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="SurveyService.triggerEmail(Edm.Guid,Edm.String,Edm.String)/Email">
+            <Annotations Target="SurveyService.triggerEmail(Edm.Guid,Edm.String,Edm.String,Edm.String,Edm.String)/CustomerEmail">
                 <Annotation Term="Common.Label" String="Customer Email"/>
             </Annotations>
-            <Annotations Target="SurveyService.triggerEmail(Edm.Guid,Edm.String,Edm.String)/Customer">
+            <Annotations Target="SurveyService.triggerEmail(Edm.Guid,Edm.String,Edm.String,Edm.String,Edm.String)/Customer">
                 <Annotation Term="Common.Label" String="Customer"/>
+            </Annotations>
+            <Annotations Target="SurveyService.triggerEmail(Edm.Guid,Edm.String,Edm.String,Edm.String,Edm.String)/CEE">
+                <Annotation Term="Common.Label" String="Initiator Name"/>
+            </Annotations>
+            <Annotations Target="SurveyService.triggerEmail(Edm.Guid,Edm.String,Edm.String,Edm.String,Edm.String)/CEEEmail">
+                <Annotation Term="Common.Label" String="Initiated By"/>
             </Annotations>
             <Annotations Target="SurveyService.QuestionType">
                 <Annotation Term="UI.Identification">

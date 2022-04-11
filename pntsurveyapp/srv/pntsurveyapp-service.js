@@ -2,9 +2,7 @@
 * Implementation for PntSurveyAppService defined in ./pntsurveyapp-service.cds
 */
 const cds = require('@sap/cds');
-// const SapCfMailer = require('sap-cf-mailer').default;
-// const transporter = new SapCfMailer("mailtrap");
-
+const nodemailer = require('nodemailer');
 
 const { Responses, Answers, SurveyFormInstances } = cds.entities("SurveyService");
 
@@ -49,7 +47,36 @@ const onDeleteBeforeResponses = async (req) => {
  * @param {Object} req Standard CDS request object 
  */
 let onTriggerEmail = async (req) => {
-    const { ResponseId, Email, Customer, CEE } = req.data;
+    const { ResponseId, CustomerEmail, Customer, CEE, CEEEmail } = req.data;
+
+    // create reusable transporter object using the default SMTP transport
+    const transporter = nodemailer.createTransport({
+        host: 'gmail',
+        port: 587,
+        auth: {
+            user: 'demosapcp@gmail.com',
+            pass: 'vcxc3668'
+        }
+    });
+
+    var mailOptions = {
+        from: 'demosapcp@gmail.com', // sender address
+        to: CustomerEmail, // list of receivers
+        subject: "Welcome to SAP Business Technology Platform - " + Customer, // Subject line
+        // text: "Test Email - Recommender App", // plain text body
+        html: "<b>Dear Customer</b>", // html body
+    };
+
+    // send mail with defined transport object
+    let result = await transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+
+    return JSON.stringify(result);
 
     // // use sendmail as you should use it in nodemailer
     // const result = await transporter.sendMail({
@@ -57,7 +84,7 @@ let onTriggerEmail = async (req) => {
     //     subject: `This is the mail subject`,
     //     text: `body of the email`
     //   });
-    //   return JSON.stringify(result);
+
 };
 
 module.exports = cds.service.impl((srv) => {

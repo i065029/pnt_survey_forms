@@ -138,6 +138,22 @@ sap.ui.define([], function () {
             });
         },
 
+        onTriggerEmail: function (ResponseId, CustomerEmail, Customer, CEE, CEEEmail, oData) {
+            return new Promise(function (oResolve, oReject) {
+                var sPath = "./pntsurvey/triggerEmail(ResponseId=" + ResponseId + ",CustomerEmail='" + CustomerEmail + 
+                            "',Customer='" + Customer + "',CEE='" + CEE + "',CEEEmail='" + CEEEmail + "')";
+                $.ajax({
+                    type: "GET",
+                    url: sPath,
+                    data: JSON.stringify(oData),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: oResolve,
+                    error: oReject
+                });
+            });
+        },
+
         UIToDB: function (oData) {
             return oData;
         },

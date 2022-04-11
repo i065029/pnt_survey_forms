@@ -27,7 +27,7 @@ sap.ui.define([
                         surveyform.getUser().then(function (oData) {
                             var selControluser = that._oDialog.getContent()[0].getContent()[13];
                             var selControlusername = that._oDialog.getContent()[0].getContent()[15];
-                            selControluser. setText(oData.email);
+                            selControluser.setText(oData.email);
                             var userName = oData.firstname + " " + oData.lastname;
                             selControlusername.setText(userName);
                         }).catch(ServiceUtil.errorHandler);
@@ -158,6 +158,14 @@ sap.ui.define([
                         // Create Response
                         surveyform.createresponse(postResponse).then(function (oData) {
                             var lclResponseId = oData.ID;
+                            // Trigger Email
+                            var lclCustomerEmail = postDataSurveyFormInstance.customer_email || 'rajiv.shivdev.pandey@sap.com';
+                            var lclCustomer = 'Test Customer';
+                            var lclCEE = postDataSurveyFormInstance.init_name || 'Rajiv Pandey';
+                            var lclCEEEmail = postDataSurveyFormInstance.init_by || 'rajiv.shivdev.pandey@sap.com';
+                            surveyform.onTriggerEmail(lclResponseId, lclCustomerEmail, lclCustomer, lclCEE, lclCEEEmail).then(function (msg) {
+                                console.log(msg);
+                            }).catch(ServiceUtil.errorHandler);
                             // Get Survey form Questionnaire
                             surveyform.getSurveyFormQuestionsBasedOnResponse(lclResponseId).then(function (oData) {
                                 var lclResponse_Id = oData.ID;

@@ -14,6 +14,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "hdb": "^0.18.3",
+    "nodemailer": "^6.7.3",
     "passport": "^0.4.1",
     "sap-cf-mailer": "0.0.5"
   },
