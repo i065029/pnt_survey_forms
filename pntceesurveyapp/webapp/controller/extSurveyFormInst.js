@@ -159,10 +159,10 @@ sap.ui.define([
                         surveyform.createresponse(postResponse).then(function (oData) {
                             var lclResponseId = oData.ID;
                             // Trigger Email
-                            var lclCustomerEmail = postDataSurveyFormInstance.customer_email || 'rajiv.shivdev.pandey@sap.com';
-                            var lclCustomer = 'Test Customer';
-                            var lclCEE = postDataSurveyFormInstance.init_name || 'Rajiv Pandey';
-                            var lclCEEEmail = postDataSurveyFormInstance.init_by || 'rajiv.shivdev.pandey@sap.com';
+                            var lclCustomerEmail = postDataSurveyFormInstance.customer_email;
+                            var lclCustomer = that._oDialog.getContent()[0].getContent()[3]._getSelectedItemText();
+                            var lclCEE = postDataSurveyFormInstance.init_name;
+                            var lclCEEEmail = postDataSurveyFormInstance.init_by;
                             surveyform.onTriggerEmail(lclResponseId, lclCustomerEmail, lclCustomer, lclCEE, lclCEEEmail).then(function (msg) {
                                 console.log(msg);
                             }).catch(ServiceUtil.errorHandler);
