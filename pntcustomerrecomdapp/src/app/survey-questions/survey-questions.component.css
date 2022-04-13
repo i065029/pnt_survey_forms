@@ -2,17 +2,17 @@
     padding: 1%;
 }
 
-.sap-logo {
+/* .sap-logo {
     width: 6%;
     height: 55%;
-}
+} */
 
-.parent-container-image {
+/* .parent-container-image {
     background-image: url('../../assets/images/main_page.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-}
+} */
 
 .header-toolbar {
     background-color: #042d57;
