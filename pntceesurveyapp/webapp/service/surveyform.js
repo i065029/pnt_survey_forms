@@ -110,7 +110,7 @@ sap.ui.define([], function () {
 
         getSurveyForms: function (oData) {
             return new Promise(function (oResolve, oReject) {
-                var sPath = "./pntsurvey/SurveyForms?filter=activation_status_code eq '0'";
+                var sPath = "./pntsurvey/SurveyForms?filter=activation_status_code eq '1'";
                 $.ajax({
                     type: "GET",
                     url: sPath,

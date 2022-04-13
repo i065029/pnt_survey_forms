@@ -163,9 +163,9 @@ sap.ui.define([
                             var lclCustomer = that._oDialog.getContent()[0].getContent()[3]._getSelectedItemText();
                             var lclCEE = postDataSurveyFormInstance.init_name;
                             var lclCEEEmail = postDataSurveyFormInstance.init_by;
-                            surveyform.onTriggerEmail(lclResponseId, lclCustomerEmail, lclCustomer, lclCEE, lclCEEEmail).then(function (msg) {
+                            /*surveyform.onTriggerEmail(lclResponseId, lclCustomerEmail, lclCustomer, lclCEE, lclCEEEmail).then(function (msg) {
                                 console.log(msg);
-                            }).catch(ServiceUtil.errorHandler);
+                            }).catch(ServiceUtil.errorHandler);*/
                             // Get Survey form Questionnaire
                             surveyform.getSurveyFormQuestionsBasedOnResponse(lclResponseId).then(function (oData) {
                                 var lclResponse_Id = oData.ID;

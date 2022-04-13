@@ -89,8 +89,8 @@ annotate service.Responses @(UI : {
             Value : ID,
             Url   : {$edmJson : {
                 $Apply    : [
-                    'https://survey-form-customer-persona-insightful-wombat-gb.cfapps.ap10.hana.ondemand.com/?id=',
-                    // 'https://survey-form-customer-persona-chipper-kudu-zm.cfapps.ap10.hana.ondemand.com/?id=',
+                    // 'https://survey-form-customer-persona-insightful-wombat-gb.cfapps.ap10.hana.ondemand.com/?id=', // DEV
+                    'https://survey-form-customer-persona-courteous-gorilla-to.cfapps.ap10.hana.ondemand.com/?id=', //PRD
                     {$Path : 'ID', },
                 ],
                 $Function : 'odata.concat',
@@ -178,8 +178,8 @@ annotate service.Responses @(UI : {
             Value : 'View Survey Form',
             Url   : {$edmJson : {
                 $Apply    : [
-                    'https://survey-form-customer-persona-insightful-wombat-gb.cfapps.ap10.hana.ondemand.com/?id=',
-                    // 'https://survey-form-customer-persona-chipper-kudu-zm.cfapps.ap10.hana.ondemand.com/?id=',
+                    // 'https://survey-form-customer-persona-insightful-wombat-gb.cfapps.ap10.hana.ondemand.com/?id=', //DEV
+                    'https://survey-form-customer-persona-courteous-gorilla-to.cfapps.ap10.hana.ondemand.com/?id=', //PRD
                     {$Path : 'ID', },
                 ],
                 $Function : 'odata.concat',
