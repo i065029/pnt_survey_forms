@@ -72,10 +72,10 @@ sap.ui.define([
             }
 
             this.onChangeRegion = function (oEvent) {
-                var selectedRegion = oEvent.getParameters().selectedItem.getProperty("key");
+                var selectedRegion = oEvent.getSource().getSelectedItem().getProperty("key");
                 var selectCustomer = that._oDialog.getContent()[0].getContent()[3];
                 selectCustomer.setSelectedKey(undefined);
-                selectableItems = selectCustomer.getSelectableItems();
+                selectableItems = selectCustomer.getItems();
                 for (var si = 0; si < selectableItems.length; si++) {
                     if (selectableItems[si].getProperty("key") !== 'Blank') {
                         selectableItems[si].destroy();
@@ -126,9 +126,7 @@ sap.ui.define([
                 }
 
                 var expiry_date = this._oDialog.getModel("surveyforminstances").getData()['expiry_date'];
-                var expiryDate = expiry_date.toLocaleDateString().split("/")[2] + "-" +
-                    expiry_date.toLocaleDateString().split("/")[1] + "-" +
-                    expiry_date.toLocaleDateString().split("/")[0];
+                var expiryDate = expiry_date.toISOString().split("T")[0];
                 var reminder_interval = 0;
                 reminder_interval = parseInt(this._oDialog.getModel("surveyforminstances").getData()['reminder_interval']);
                 if (reminder_interval === NaN) { reminder_interval = 0 }

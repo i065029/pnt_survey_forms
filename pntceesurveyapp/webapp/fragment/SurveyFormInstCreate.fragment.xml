@@ -10,19 +10,19 @@
 			<form:SimpleForm title = "" layout = "ResponsiveGridLayout">
 
                 <Label text = "Region" required="true"/>
-                <Select selectedKey="{path:'surveyforminstances>/region'}" change="onChangeRegion">
+                <ComboBox selectedKey="{path:'surveyforminstances>/region'}" change="onChangeRegion">
                         <core:ListItem key='Blank' text=""/>
-				</Select>
+				</ComboBox>
 
 				<Label text = "Customer" required="true"/>
-				<Select showSecondaryValues= "true" selectedKey="{path:'surveyforminstances>/customer'}">
+				<ComboBox showSecondaryValues= "true" selectedKey="{path:'surveyforminstances>/customer'}">
                         <core:ListItem key='Blank' text=""/>
-				</Select>
+				</ComboBox>
 
 				<Label text = "Form Template" required="true"/>
-				<Select showSecondaryValues= "true" selectedKey="{path:'surveyforminstances>/surveyForm'}">
+				<ComboBox showSecondaryValues= "true" selectedKey="{path:'surveyforminstances>/surveyForm'}">
                         <core:ListItem key='Blank' text=""/>
-				</Select>
+				</ComboBox>
 
                 <Label text = "Customer Email" required="true" />
 				<TextArea value="{path:'surveyforminstances>/customer_email'}" liveChange="onChangeCustomerEmail" growing="true"/>
