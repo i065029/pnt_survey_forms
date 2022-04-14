@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,11 @@ export class SurveydataService {
 
   responseId: any;
 
-  baseUrl = "https://sap-cp-apj-customersuccessteam-cspindev-btpapps-pntsurv5507ee5d.cfapps.ap10.hana.ondemand.com/pntsurvey/Responses/";
+  // Dev URL
+  // baseUrl = "https://sap-cp-apj-customersuccessteam-cspindev-btpapps-pntsurv5507ee5d.cfapps.ap10.hana.ondemand.com/pntsurvey/Responses/";
+  // PROD URL
+  baseUrl = "https://btpcsp-prod-pntsurveyapp-srv.cfapps.ap10.hana.ondemand.com/pntsurvey/Responses/";
+
 
   constructor(private http: HttpClient) {
     console.log(window.location.search);
