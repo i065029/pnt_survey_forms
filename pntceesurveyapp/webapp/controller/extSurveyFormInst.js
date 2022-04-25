@@ -64,6 +64,14 @@ sap.ui.define([
                 } else {
                     if (bisOpen) {
                         this._oDialog.setModel(new JSONModel(), "surveyforminstances");
+                        // Get Logged in User
+                        surveyform.getUser().then(function (oData) {
+                            var selControluser = that._oDialog.getContent()[0].getContent()[13];
+                            var selControlusername = that._oDialog.getContent()[0].getContent()[15];
+                            selControluser.setText(oData.email);
+                            var userName = oData.firstname + " " + oData.lastname;
+                            selControlusername.setText(userName);
+                        }).catch(ServiceUtil.errorHandler);
                         this._oDialog.open();
                     } else {
                         this._oDialog.close();
