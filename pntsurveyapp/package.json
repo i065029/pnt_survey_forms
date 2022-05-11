@@ -56,7 +56,11 @@
     "cds": {
         "requires": {
             "db": {
-                "kind": "sql"
+                "kind": "sql",
+                "pool": {
+                    "acquireTimeoutMillis": 10000,
+                    "max": 1000
+                }
             },
             "TotangoCustomersApi": {
                 "kind": "rest",
@@ -70,6 +74,9 @@
         },
         "hana": {
             "deploy-format": "hdbtable"
-        }
+        },
+        "--features": {
+            "assert_integrity": false
+          }
     }
 }
