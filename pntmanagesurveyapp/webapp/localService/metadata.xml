@@ -1075,57 +1075,6 @@
             <Annotations Target="SurveyService.Regions/region_name">
                 <Annotation Term="Common.Label" String="Region"/>
             </Annotations>
-            <Annotations Target="SurveyService.Customers">
-                <Annotation Term="UI.LineItem">
-                    <Collection>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="customer_id"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="customer_name"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="status"/>
-                            <PropertyValue Property="Value" Path="status"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="deleted"/>
-                            <PropertyValue Property="Value" Path="deleted"/>
-                        </Record>
-                    </Collection>
-                </Annotation>
-                <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup1">
-                    <Record Type="UI.FieldGroupType">
-                        <PropertyValue Property="Data">
-                            <Collection>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="customer_id"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Value" Path="customer_name"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="status"/>
-                                    <PropertyValue Property="Value" Path="status"/>
-                                </Record>
-                                <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="deleted"/>
-                                    <PropertyValue Property="Value" Path="deleted"/>
-                                </Record>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="UI.Facets">
-                    <Collection>
-                        <Record Type="UI.ReferenceFacet">
-                            <PropertyValue Property="ID" String="GeneratedFacet1"/>
-                            <PropertyValue Property="Label" String="General Information"/>
-                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneratedGroup1"/>
-                        </Record>
-                    </Collection>
-                </Annotation>
-            </Annotations>
             <Annotations Target="SurveyService.Customers/createdAt">
                 <Annotation Term="UI.HiddenFilter" Bool="true"/>
                 <Annotation Term="Core.Immutable" Bool="true"/>

@@ -43,11 +43,9 @@ service SurveyService {
         modifiedBy
     };
 
-    function triggerEmail(
-        ResponseId : type of Responses : ID, 
-        CustomerEmail : type of SurveyFormInstances : customer_email, 
-        Customer : type of Customers : customer_name, 
-        CEE : type of SurveyFormInstances : init_name, 
-        CEEEmail : type of SurveyFormInstances : init_by
-    ) returns String;
+    action   updateCustomers();
+    action   startJobs();
+    action   stopJobs();
+    
+    function triggerEmail(ResponseId : type of Responses : ID, CustomerEmail : type of SurveyFormInstances : customer_email, Customer : type of Customers : customer_name, CEE : type of SurveyFormInstances : init_name, CEEEmail : type of SurveyFormInstances : init_by) returns String;
 }

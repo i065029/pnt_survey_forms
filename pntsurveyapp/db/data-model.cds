@@ -41,6 +41,8 @@ entity Customer : cuid, managed {
     @title : 'Customer No' customer_id : String;
     @title : 'Customer' customer_name  : String;
     region                             : Association to Region;
+    status                             : String(10);
+    deleted                            : Boolean;
 }
 
 entity SurveyFormInstance : cuid, managed {

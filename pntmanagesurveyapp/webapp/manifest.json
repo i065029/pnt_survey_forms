@@ -1,24 +1,29 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "formsceeui.formsceeui",
+        "id": "formsmanage.formsmanage",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
-            "version": "1.0.0"
+            "version": "0.0.1"
         },
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap-ux/fiori-elements-writer:lrop",
+            "version": "0.2.0"
+        },
         "dataSources": {
             "mainService": {
                 "uri": "/pntsurvey/",
                 "type": "OData",
                 "settings": {
-                    "odataVersion": "4.0",
                     "annotations": [
                         "annotation"
                     ],
-                    "localUri": "localService/metadata.xml"
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
                 }
             },
             "annotation": {
@@ -29,20 +34,14 @@
                 }
             }
         },
-        "offline": false,
-        "resources": "resources.json",
-        "sourceTemplate": {
-            "id": "ui5template.fiorielements.v4.lrop",
-            "version": "1.0.0"
-        },
         "crossNavigation": {
             "inbounds": {
-                "formsceeui-inbound": {
+                "formsmanage-formsmanage-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "formsceeui",
+                    "semanticObject": "formsmanage",
                     "action": "display",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
@@ -71,26 +70,26 @@
         "ui5VersionNumber": "1.99.0"
     },
     "sap.ui5": {
-        "resources": {
-            "js": [],
-            "css": []
-        },
+        "flexEnabled": true,
         "dependencies": {
             "minUI5Version": "1.76.0",
             "libs": {
+                "sap.m": {},
                 "sap.ui.core": {},
-                "sap.fe.templates": {},
-                "sap.f": {}
+                "sap.ushell": {},
+                "sap.fe.templates": {}
             }
         },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
         "models": {
-            "@i18n": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "uri": "i18n/i18n.properties"
-            },
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
-                "uri": "i18n/i18n.properties"
+                "settings": {
+                    "bundleName": "formsmanage.formsmanage.i18n.i18n"
+                }
             },
             "": {
                 "dataSource": "mainService",
@@ -99,36 +98,44 @@
                     "synchronizationMode": "None",
                     "operationMode": "Server",
                     "autoExpandSelect": true,
-                    "earlyRequests": true
+                    "earlyRequests": true,
+                    "groupId": "$direct"
                 }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
             }
+        },
+        "resources": {
+            "css": []
         },
         "routing": {
             "routes": [
                 {
                     "pattern": ":?query:",
-                    "name": "SurveyFormInstancesList",
-                    "target": "SurveyFormInstancesList"
+                    "name": "CustomersList",
+                    "target": "CustomersList"
                 },
                 {
-                    "pattern": "Responses({key}):?query:",
-                    "name": "SurveyFormInstancesObjectPage",
-                    "target": "SurveyFormInstancesObjectPage"
+                    "pattern": "Customers({key}):?query:",
+                    "name": "CustomersObjectPage",
+                    "target": "CustomersObjectPage"
                 }
             ],
             "targets": {
-                "SurveyFormInstancesList": {
+                "CustomersList": {
                     "type": "Component",
-                    "id": "SurveyFormInstancesList",
+                    "id": "CustomersList",
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings": {
-                            "entitySet": "Responses",
+                            "entitySet": "Customers",
                             "variantManagement": "Page",
                             "navigation": {
-                                "Responses": {
+                                "Customers": {
                                     "detail": {
-                                        "route": "SurveyFormInstancesObjectPage"
+                                        "route": "CustomersObjectPage"
                                     }
                                 }
                             },
@@ -136,11 +143,23 @@
                             "content": {
                                 "header": {
                                     "actions": {
-                                        "manageSurveyFormInst": {
-                                            "press": "formsceeui.formsceeui.controller.extSurveyFormInst.manageSurveyFormInst",
-                                            "visible": true,
-                                            "enabled": true,
-                                            "text": "Trigger New"
+                                        "SyncTotangoCustomers": {
+                                            "press": "formsmanage.formsmanage.ext.controller.TotangoCustomersExt.syncTotangoCustomers",
+                                            "visible": "true",
+                                            "enabled": "true",
+                                            "text": "Sync"
+                                        },
+                                        "StartJobs": {
+                                            "press": "formsmanage.formsmanage.ext.controller.TotangoCustomersExt.startJobs",
+                                            "visible": "true",
+                                            "enabled": "true",
+                                            "text": "Schedule Sync"
+                                        },
+                                        "StopJobs": {
+                                            "press": "formsmanage.formsmanage.ext.controller.TotangoCustomersExt.stopJobs",
+                                            "visible": "true",
+                                            "enabled": "true",
+                                            "text": "Stop scheduled Sync"
                                         }
                                     }
                                 }
@@ -148,39 +167,26 @@
                         }
                     }
                 },
-                "SurveyFormInstancesObjectPage": {
+                "CustomersObjectPage": {
                     "type": "Component",
-                    "id": "SurveyFormInstancesObjectPage",
+                    "id": "CustomersObjectPage",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
                             "editableHeaderContent": false,
-                            "entitySet": "Responses"
+                            "entitySet": "Customers"
                         }
                     }
                 }
             }
-        },
-        "contentDensities": {
-            "compact": true,
-            "cozy": true
         }
     },
-    "sap.platform.abap": {
-        "_version": "1.1.0",
-        "uri": ""
-    },
-    "sap.platform.hcp": {
-        "_version": "1.1.0",
-        "uri": ""
-    },
     "sap.fiori": {
-        "_version": "1.1.0",
         "registrationIds": [],
         "archeType": "transactional"
     },
     "sap.cloud": {
         "public": true,
-        "service": "formsceeui"
+        "service": "formsmanage"
     }
 }

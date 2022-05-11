@@ -1,65 +1,75 @@
 {
-  "name": "pntsurveyapp",
-  "version": "1.0.0",
-  "description": "P&T Survey App",
-  "repository": "<Add your repository here>",
-  "license": "UNLICENSED",
-  "private": true,
-  "dependencies": {
-    "@sap/cds": "^5.8.2",
-    "@sap/cds-odata-v2-adapter-proxy": "^1.8.9",
-    "@sap/hana-client": "^2.11.20",
-    "@sap/xsenv": "^3.1.1",
-    "@sap/xssec": "^3.2.13",
-    "cors": "^2.8.5",
-    "express": "^4.17.3",
-    "hdb": "^0.18.3",
-    "nodemailer": "^6.7.3",
-    "passport": "^0.4.1",
-    "sap-cf-mailer": "0.0.5"
-  },
-  "devDependencies": {
-    "@sap/hdi-deploy": "4.2.0",
-    "@sap/ux-specification": "^1.96.4",
-    "sqlite3": "^5.0.2"
-  },
-  "scripts": {
-    "start": "cds run",
-    "undeploy": "cf undeploy pntsurveyapp --delete-services --delete-service-keys"
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "env": {
-      "es2020": true,
-      "node": true,
-      "jest": true,
-      "mocha": true
+    "name": "pntsurveyapp",
+    "version": "1.0.0",
+    "description": "P&T Survey App",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap/cds": "^5.8.2",
+        "@sap/cds-odata-v2-adapter-proxy": "^1.8.9",
+        "@sap/hana-client": "^2.11.20",
+        "@sap/xsenv": "^3.1.1",
+        "@sap/xssec": "^3.2.13",
+        "cors": "^2.8.5",
+        "express": "^4.17.3",
+        "hdb": "^0.18.3",
+        "nodemailer": "^6.7.4",
+        "nodemailer-express-handlebars": "^5.0.0",
+        "passport": "^0.4.1",
+        "sap-cf-mailer": "0.0.5"
     },
-    "globals": {
-      "SELECT": true,
-      "INSERT": true,
-      "UPDATE": true,
-      "DELETE": true,
-      "CREATE": true,
-      "DROP": true,
-      "CDL": true,
-      "CQL": true,
-      "CXL": true,
-      "cds": true
+    "devDependencies": {
+        "@sap/hdi-deploy": "4.2.0",
+        "@sap/ux-specification": "^1.100.1",
+        "sqlite3": "^5.0.2"
     },
-    "rules": {
-      "no-console": "off",
-      "require-atomic-updates": "off"
+    "scripts": {
+        "start": "cds run",
+        "undeploy": "cf undeploy pntsurveyapp --delete-services --delete-service-keys"
+    },
+    "eslintConfig": {
+        "extends": "eslint:recommended",
+        "env": {
+            "es2020": true,
+            "node": true,
+            "jest": true,
+            "mocha": true
+        },
+        "globals": {
+            "SELECT": true,
+            "INSERT": true,
+            "UPDATE": true,
+            "DELETE": true,
+            "CREATE": true,
+            "DROP": true,
+            "CDL": true,
+            "CQL": true,
+            "CXL": true,
+            "cds": true
+        },
+        "rules": {
+            "no-console": "off",
+            "require-atomic-updates": "off"
+        }
+    },
+    "cds": {
+        "requires": {
+            "db": {
+                "kind": "sql"
+            },
+            "TotangoCustomersApi": {
+                "kind": "rest",
+                "impl": "srv/ext/TotangoCustomersApi.js",
+                "credentials": {
+                    "--destination": "TotangoCustomersApi",
+                    "destination": "totango",
+                    "--url": "https://api-eu1.totango.com/api/v1/search/accounts"
+                }
+            }
+        },
+        "hana": {
+            "deploy-format": "hdbtable"
+        }
     }
-  },
-  "cds": {
-    "requires": {
-      "db": {
-        "kind": "sql"
-      }
-    },
-    "hana": {
-      "deploy-format": "hdbtable"
-    }
-  }
 }

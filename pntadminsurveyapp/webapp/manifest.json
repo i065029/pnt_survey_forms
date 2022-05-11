@@ -67,13 +67,16 @@
             "phone": true
         }
     },
+    "sap.platform.cf": {
+        "ui5VersionNumber": "1.99.0"
+    },
     "sap.ui5": {
         "resources": {
             "js": [],
             "css": []
         },
         "dependencies": {
-            "minUI5Version": "1.98.0",
+            "minUI5Version": "1.76.0",
             "libs": {
                 "sap.ui.core": {},
                 "sap.fe.templates": {},

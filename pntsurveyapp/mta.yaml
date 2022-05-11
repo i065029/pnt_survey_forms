@@ -2,59 +2,91 @@
 ## appName = pntsurveyapp
 ## language=nodejs; multitenant=false
 ## approuter=
-_schema-version: '3.1'
+_schema-version: "3.1"
 ID: pntsurveyapp
 version: 1.0.0
 description: "A simple CAP project."
 parameters:
   enable-parallel-deployments: true
-   
+
 build-parameters:
   before-all:
-   - builder: custom
-     commands:
-      - npm ci
-      - npx -p @sap/cds-dk cds build --production
+    - builder: custom
+      commands:
+        - npm ci
+        - npx -p @sap/cds-dk cds build --production
 
 modules:
- # --------------------- SERVER MODULE ------------------------
- - name: pntsurveyapp-srv
- # ------------------------------------------------------------
-   type: nodejs
-   path: gen/srv
-   parameters:
-     buildpack: nodejs_buildpack
-   requires:
-    # Resources extracted from CAP configuration
-    - name: pntsurveyapp-db
-   provides:
-    - name: srv-api      # required by consumers of CAP services (e.g. approuter)
-      properties:
-        srv-url: ${default-url}
+  # --------------------- SERVER MODULE ------------------------
+  - name: pntsurveyapp-srv
+    # ------------------------------------------------------------
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      # Resources extracted from CAP configuration
+      - name: pntsurveyapp-db
+      - name: pntsurveyapp-logs
+      - name: totango-destination-pntsurveyapp
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
 
- # -------------------- SIDECAR MODULE ------------------------
- - name: pntsurveyapp-db-deployer
- # ------------------------------------------------------------
-   type: hdb
-   path: gen/db  
-   parameters:
-     buildpack: nodejs_buildpack
-   requires:
-    # 'hana' and 'xsuaa' resources extracted from CAP configuration
-    - name: pntsurveyapp-db
-
+  # -------------------- SIDECAR MODULE ------------------------
+  - name: pntsurveyapp-db-deployer
+    # ------------------------------------------------------------
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      # 'hana' and 'xsuaa' resources extracted from CAP configuration
+      - name: pntsurveyapp-db
 
 resources:
- # services extracted from CAP configuration
- # 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
-# ------------------------------------------------------------
- - name: pntsurveyapp-db
-# ------------------------------------------------------------
-   type: com.sap.xs.hdi-container
-   parameters:
-     service: hana  # or 'hanatrial' on trial landscapes
-     service-plan: hdi-shared
-   properties:
-     hdi-service-name: ${service-name}
+  # services extracted from CAP configuration
+  # 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
+  # ------------------------------------------------------------
+  - name: pntsurveyapp-db
+    # ------------------------------------------------------------
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana # or 'hanatrial' on trial landscapes
+      service-plan: hdi-shared
+    properties:
+      hdi-service-name: ${service-name}
 
+  #---------------------------------------------
+  # Application logging service instance
+  #---------------------------------------------
+  - name: pntsurveyapp-logs
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: application-logs
+      service-plan: lite
 
+  #---------------------------------------------
+  # Destination (Totango API) service instance
+  #---------------------------------------------
+  - name: totango-destination-pntsurveyapp
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: totango
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://api-eu1.totango.com/api/v1/search/accounts
+                HTML5.Timeout: 1800000
+                timeout: 1800000
+                ClientReadTimeout: 1800000
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-plan: lite
